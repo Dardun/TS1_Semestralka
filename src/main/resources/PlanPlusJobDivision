@@ -17,13 +17,13 @@ Celkom čo mame k dispozici
 2Spatny vstup pri prihlaseni,
 3Search,
 4Pridani zbozi do Kosiku,
-5Zmena adresy??? Lze změnit asi jednoduše.  dokonce bez potvrzení
+5Zmena adresy??? Lze změnit asi jednoduše.  dokonce bez potvrzení - snad neni moc simple
 6.pridat do oblubenych produktov
 7. přidat recenzi?
 8. test ze vymaze aktualne cookies a acceptne nove pre demostraciu toho ze sa jedna o "ineho" pouzivatela
 
-9.
-10
+9.email subscription test?
+10 odhlasit?
 
 
 3 CSV Subory:
@@ -47,6 +47,11 @@ NOTE = metalshop pri registraci nepotreboval potvrzeni, stacilo mu platne ty pol
 
 
 Jeste potrebujes pouzit CSV... JAK??
+
+
+
+
+End to end - jen testy vsecky hodime poporade?
 
 Adam(){
 
