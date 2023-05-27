@@ -39,13 +39,7 @@ public class testTest {
 //         driver.quit();
 //     }
 
-@Test
-     void test(){
 
-         HomePage homePage = new HomePage(driver);
-
-
-     }
 
 
 
@@ -53,11 +47,7 @@ public class testTest {
     @Test
     public void getToLoginPage() throws InterruptedException {
 
-
-
         HomePage homePage = new HomePage(driver);
-
-
 
         LoginPage loginPage = homePage.clickLoginOption();
 
@@ -67,11 +57,29 @@ public class testTest {
     @Test
     public void acceptCookies() throws InterruptedException {
 
-        HomePage homePage = new HomePage(driver);
 
 
         $ (By.cssSelector("#submit_cookies")).click();
 
+
+    }
+
+    public void closeSaleAdvert() throws  InterruptedException{
+
+
+        HomePage homePage = new HomePage(driver);
+
+        homePage.closeSaleAdvert();
+    }
+
+
+    @Test
+    void cookiesPlusLogin() throws InterruptedException {
+
+        HomePage homePage = new HomePage(driver);
+
+         acceptCookies();
+         getToLoginPage();
 
     }
 

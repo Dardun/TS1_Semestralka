@@ -1,43 +1,36 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
-import org.w3c.dom.html.HTMLInputElement;
-
-import java.sql.Driver;
 
 import static com.codeborne.selenide.Selenide.$;
 
 public class HomePage {
     private WebDriver driver;
 
-    @FindBy(how = How.CSS, using = "body > div:nth-child(1) > div:nth-child(3) > header:nth-child(1) > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(1) > li:nth-child(3) > a:nth-child(1)")
+    @FindBy(how = How.CSS, using = "#head_nav > ul > li:nth-child(3) > a")
     private WebElement loginButtonAnchor;
 
-    @FindBy(how = How.CSS, using = "body > div:nth-child(1) > div:nth-child(3) > header:nth-child(1) > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(1) > li:nth-child(3) > a:nth-child(1) > div:nth-child(2)")
+    @FindBy(how = How.CSS,using = "#newsletter-modal-in > div > div > div > button")
+    private WebElement closeSaleAdvertButton;
+
+    @FindBy(how = How.CSS, using = "#header > div.container.top-header-margin > div.col-xs-4.col-2xs-4.small-devices-displayed > div > a:nth-child(4)")
     private WebElement cartButtonAnchor;
 
-    @FindBy(how = How.CSS, using = "body > div:nth-child(1) > div:nth-child(3) > header:nth-child(1) > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(1) > li:nth-child(2) > a:nth-child(1) > div:nth-child(2)")
+    @FindBy(how = How.CSS, using = "#header > div.container.top-header-margin > div.col-xs-4.col-2xs-4.small-devices-displayed > div > a:nth-child(2)")
     private WebElement favoritesButtonAnchor;
 
-    @FindBy(how = How.CSS, using = "body > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > nav:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(10) > a:nth-child(1)")
+    @FindBy(how = How.CSS, using = "#mySidenav > div > ul > li.dropdown.bands > a")
     private WebElement bandsButtonAnchor;
-
-
-
-
     @FindBy(how = How.CSS,using = "#submit_cookies")
     private WebElement cookieAnchor;
-//
-//    @FindBy(css = "div[class='cross-nav cross-nav--wide'] a[class='register-link flyout-caption']")
-//    private WebElement registerButton;
-//
-//    @FindBy(css = "#advanced-search-link")
-//    private  WebElement advancedSearchLink;
+
+
+
+
     public HomePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -48,6 +41,10 @@ public class HomePage {
         driver.get("https://metalshop.cz/");
         return this;
     }
+    public HomePage closeSaleAdvert() {
+        closeSaleAdvertButton.click();
+        return this;
+    }
 
     public ShoppingCartPage clickShoppingCartOption() {
         cartButtonAnchor.click();
@@ -56,10 +53,7 @@ public class HomePage {
 
     public LoginPage clickLoginOption() {
 
-
-
-        $ (By.cssSelector("#body > div:nth-child(1) > div:nth-child(3) > header:nth-child(1) > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(1) > li:nth-child(3) > a:nth-child(1)")).click();
-//        loginButtonAnchor.click();
+        loginButtonAnchor.click();
         return new LoginPage(driver);
     }
 
