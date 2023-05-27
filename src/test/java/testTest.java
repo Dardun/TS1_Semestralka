@@ -3,15 +3,9 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.HomePage;
 import pages.LoginPage;
-
-import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.element;
@@ -54,10 +48,6 @@ public class testTest {
 
     }
 
-    @Test
-    public void acceptCookies() throws InterruptedException {
-        $ (By.cssSelector("#submit_cookies")).click();
-    }
 
     public void closeSaleAdvert() throws  InterruptedException{
 
@@ -69,8 +59,8 @@ public class testTest {
 
 
     @Test
-    void cookiesAccept() throws InterruptedException {
-         acceptCookies();
+    void acceptCookies() throws InterruptedException {
+        $ (By.cssSelector("#submit_cookies")).click();
 
     }
 
@@ -80,7 +70,7 @@ public class testTest {
         LoginPage loginPage = new LoginPage(driver);
 
 
-        cookiesAccept();
+        acceptCookies();
         loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
         loginPage.inputTextIntoPWField("protondeeznuts123");
         loginPage.submitLoginInfo();
@@ -98,7 +88,7 @@ public class testTest {
         LoginPage loginPage = new LoginPage(driver);
 
 
-        cookiesAccept();
+        acceptCookies();
         loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
         loginPage.inputTextIntoPWField("wrongPassword123");
         loginPage.submitLoginInfo();
@@ -110,5 +100,28 @@ public class testTest {
 
 
 
+    }
+    @Test
+    void search(String searchString){
+
+        $ (By.cssSelector("#fulltextvalue")).sendKeys(searchString);
+
+
+
+        $ (By.cssSelector("#search_send")).click();
+
+
+        String currentUrl = driver.getCurrentUrl();
+
+        Assertions.assertEquals("https://www.metalshop.cz/search/" + searchString + "/",currentUrl);
+
+    }
+
+    @Test
+    void searchTestFromHomePage() throws InterruptedException {
+
+        HomePage homePage = new HomePage(driver);
+        acceptCookies();
+        search("abcd");
     }
 }

@@ -68,24 +68,5 @@ public class HomePage {
 
 
 
-//    public pages.HomePage clickSearchOptions() throws InterruptedException {
-//        searchOptionsButton.click();
-//        Thread.sleep(2000); // Wait for the page to load (adjust as needed)
-//        return this;
-//    }
-//    public AdvancedSearchPage clickAdvancedSearch() throws InterruptedException {
-//
-//
-//        advancedSearchLink.click();
-//        Thread.sleep(2000); // Wait for the page to load (adjust as needed)
-//        return new AdvancedSearchPage(driver);
-//    }
-//
-//
-//
-//    public LoginPage clickRegister() throws InterruptedException {
-//        registerButton.click();
-//        Thread.sleep(2000); // Wait for the page to load (adjust as needed)
-//        return new LoginPage(driver);
-//    }
+
 }
