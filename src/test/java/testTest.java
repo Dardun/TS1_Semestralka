@@ -1,11 +1,17 @@
 import com.codeborne.selenide.WebDriverRunner;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.text.StringEscapeUtils;
+import org.asynchttpclient.util.UriEncoder;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.HomePage;
 import pages.LoginPage;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLDecoder;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.element;
@@ -102,26 +108,32 @@ public class testTest {
 
     }
     @Test
-    void search(String searchString){
+    void search(String searchString) throws URISyntaxException {
 
         $ (By.cssSelector("#fulltextvalue")).sendKeys(searchString);
 
-
-
         $ (By.cssSelector("#search_send")).click();
-
 
         String currentUrl = driver.getCurrentUrl();
 
-        Assertions.assertEquals("https://www.metalshop.cz/search/" + searchString + "/",currentUrl);
+        String decodedURL = URLDecoder.decode(currentUrl);
+
+
+
+
+        Assertions.assertEquals("https://www.metalshop.cz/search/" + searchString + "/", decodedURL);
+
 
     }
+    UriEncoder encoder;
 
     @Test
-    void searchTestFromHomePage() throws InterruptedException {
+    void searchTestFromHomePage() throws InterruptedException, URISyntaxException {
 
         HomePage homePage = new HomePage(driver);
         acceptCookies();
-        search("abcd");
+        search("4=čárkaěěxxdd");
+        driver.close();
+        driver.quit();
     }
 }
