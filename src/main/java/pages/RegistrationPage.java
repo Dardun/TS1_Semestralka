@@ -1,5 +1,6 @@
 package pages;
 
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -32,11 +33,37 @@ public class RegistrationPage {
     private WebElement passwordAgainInput;
     @FindBy(how = How.CSS, using = "#privacy" )
     private WebElement personalInfoCheckbox;
+    @FindBy(how = How.CSS, using = "#alert_success > strong")
+    private WebElement pageTitle;
 
     public RegistrationPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOf(firstNameInput));
+    }
+
+    public RegistrationPage fillRegistrationForm(String firstName,String surname, String email, String phone,
+                                                 String street, String city, String password, String passwordV) {
+        firstNameInput.sendKeys(firstName);
+        lastNameInput.sendKeys(surname);
+        emailInput.sendKeys(email);
+        phoneNumberInput.sendKeys(phone);
+        addressInput.sendKeys(street);
+        cityInput.sendKeys(city);
+        passwordInput.sendKeys(password);
+        passwordAgainInput.sendKeys(passwordV);
+        personalInfoCheckbox.click();
+
+        return this;
+    }
+
+    public RegistrationPage pageTitleText(String text) { // should be "Potvrzeno"
+        Assertions.assertEquals(text, pageTitle.getText());
+        return this;
+    }
+
+    public WebElement getPageTitle() {
+        return pageTitle;
     }
 }

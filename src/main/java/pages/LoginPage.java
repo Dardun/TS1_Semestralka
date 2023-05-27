@@ -7,6 +7,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -21,6 +25,8 @@ public class LoginPage {
     WebElement passwordField;
     @FindBy(how = How.CSS,using = "#login > div > div:nth-child(1) > input\n")
     WebElement submitLoginButton;
+    @FindBy(how = How.CSS,using = "#login > div > div.col.col-sm-6.col-2xs-12.reg > a")
+    WebElement registrationButton;
 
 
 
@@ -46,5 +52,15 @@ public class LoginPage {
     public void submitLoginInfo(){
 
         submitLoginButton.click();
+    }
+
+    public RegistrationPage registrationButtonClick() {
+        registrationButton.click();
+        return new RegistrationPage(driver);
+    }
+
+    public void wait10SecondsFor(WebElement element) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(element));
     }
 }

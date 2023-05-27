@@ -3,9 +3,15 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.HomePage;
 import pages.LoginPage;
+import pages.RegistrationPage;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.element;
@@ -124,4 +130,51 @@ public class testTest {
         acceptCookies();
         search("abcd");
     }
+
+    @Test
+    public void registrationTest() {
+        RegistrationPage registrationPage = new HomePage(driver)
+                .openShop()
+                .clickLoginOption()
+                .registrationButtonClick()
+                .fillRegistrationForm("Lucifer", "Morningstar",
+                "lmorningstar@gmail.com", "+420601203369",
+                "Satanove Hole, 666/66", "Brno", "GodIsWatching666",
+                "GodIsWatching666");
+
+        Assertions.assertEquals("Potvrzeno", registrationPage.getPageTitle().getText());
+    }
+
+
+    @Test
+    public void logOutTest() throws InterruptedException {
+        LoginPage loginPage = new LoginPage(driver);
+        acceptCookies();
+        loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
+        loginPage.inputTextIntoPWField("protondeeznuts123");
+        loginPage.submitLoginInfo(); // firstly, logging into the account
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("#alert_success > strong")))); // waiting for elements to load
+
+        WebElement accountButton = driver.findElement(By.cssSelector("#head_nav > ul > li:nth-child(3) > a > div.name"));
+        accountButton.click(); // clicking on the user account
+
+        WebElement logOutButton = driver.findElement(By.cssSelector("#page-account > section > div > section > div.panel-heading > ul > li.logout > a"));
+        logOutButton.click(); // logging out
+
+        Assertions.assertEquals("Potvrzeno", driver.findElement(By.cssSelector("#alert_success > strong")).getText());
+    }
+
+    @Test
+    public void addProductToCartTest() throws InterruptedException {
+        HomePage homePage = new HomePage(driver);
+        acceptCookies();
+        homePage.chooseCategory(homePage.getWomenDropdown())
+                .addProductToCart(driver.findElement(By.cssSelector("#page-section > section > div > section > div.products_header.col-sm-12 > div > div.mp_category.vypis-filtre > div.row.row-products > div:nth-child(3) > div > a")));
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+//        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("#page-section > section > div > section > div.products_header.col-sm-12 > div > div.mp_category.vypis-filtre > div.row.row-products > div:nth-child(3) > div"))));
+//        homePage.addProductToCart(homePage.getWomenDropdown(), driver.findElement(By.cssSelector("#page-section > section > div > section > div.products_header.col-sm-12 > div > div.mp_category.vypis-filtre > div.row.row-products > div:nth-child(3) > div > a")));
+    }
+
 }
