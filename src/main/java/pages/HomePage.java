@@ -1,17 +1,21 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
+import org.w3c.dom.html.HTMLInputElement;
 
 import java.sql.Driver;
+
+import static com.codeborne.selenide.Selenide.$;
 
 public class HomePage {
     private WebDriver driver;
 
-    @FindBy(how = How.CSS, using = "body > div:nth-child(1) > div:nth-child(3) > header:nth-child(1) > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(1) > li:nth-child(4) > a:nth-child(1) > div:nth-child(2)")
+    @FindBy(how = How.CSS, using = "body > div:nth-child(1) > div:nth-child(3) > header:nth-child(1) > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(1) > li:nth-child(3) > a:nth-child(1)")
     private WebElement loginButtonAnchor;
 
     @FindBy(how = How.CSS, using = "body > div:nth-child(1) > div:nth-child(3) > header:nth-child(1) > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(1) > li:nth-child(3) > a:nth-child(1) > div:nth-child(2)")
@@ -22,6 +26,12 @@ public class HomePage {
 
     @FindBy(how = How.CSS, using = "body > div:nth-child(1) > div:nth-child(3) > div:nth-child(2) > div:nth-child(1) > nav:nth-child(1) > div:nth-child(2) > ul:nth-child(1) > li:nth-child(10) > a:nth-child(1)")
     private WebElement bandsButtonAnchor;
+
+
+
+
+    @FindBy(how = How.CSS,using = "#submit_cookies")
+    private WebElement cookieAnchor;
 //
 //    @FindBy(css = "div[class='cross-nav cross-nav--wide'] a[class='register-link flyout-caption']")
 //    private WebElement registerButton;
@@ -31,7 +41,7 @@ public class HomePage {
     public HomePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-//        driver.get("https://metalshop.cz");
+        driver.get("https://metalshop.cz");
     }
 
     public HomePage openShop() {
@@ -45,8 +55,17 @@ public class HomePage {
     }
 
     public LoginPage clickLoginOption() {
-        loginButtonAnchor.click();
+
+
+
+        $ (By.cssSelector("#body > div:nth-child(1) > div:nth-child(3) > header:nth-child(1) > div:nth-child(2) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(1) > li:nth-child(3) > a:nth-child(1)")).click();
+//        loginButtonAnchor.click();
         return new LoginPage(driver);
+    }
+
+    public HomePage acceptCookiesOnHomePage() {
+        cookieAnchor.click();
+        return this;
     }
 
     public FavoriteProductsPage clickFavoritesOption() {
@@ -58,6 +77,7 @@ public class HomePage {
         bandsButtonAnchor.click();
         return new BandsPage(driver);
     }
+
 
 
 //    public pages.HomePage clickSearchOptions() throws InterruptedException {
