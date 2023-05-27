@@ -1,3 +1,5 @@
+package pages;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,7 +24,7 @@ public class HomePage {
         driver.get("https://metalshop.cz");
     }
 
-//    public HomePage clickSearchOptions() throws InterruptedException {
+//    public pages.HomePage clickSearchOptions() throws InterruptedException {
 //        searchOptionsButton.click();
 //        Thread.sleep(2000); // Wait for the page to load (adjust as needed)
 //        return this;
