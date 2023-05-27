@@ -25,8 +25,6 @@ public class HomePage {
 
     @FindBy(how = How.CSS, using = "#mySidenav > div > ul > li.dropdown.bands > a")
     private WebElement bandsButtonAnchor;
-    @FindBy(how = How.CSS,using = "#submit_cookies")
-    private WebElement cookieAnchor;
 
 
 
@@ -57,10 +55,6 @@ public class HomePage {
         return new LoginPage(driver);
     }
 
-    public HomePage acceptCookiesOnHomePage() {
-        cookieAnchor.click();
-        return this;
-    }
 
     public FavoriteProductsPage clickFavoritesOption() {
         favoritesButtonAnchor.click();

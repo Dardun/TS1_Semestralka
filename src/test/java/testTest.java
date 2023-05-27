@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.HomePage;
@@ -21,7 +22,8 @@ public class testTest {
 
     WebDriver driver;
 
-     @BeforeAll
+
+    @BeforeAll
     static void setupAll(){
          WebDriverManager.chromedriver();
 
@@ -56,12 +58,7 @@ public class testTest {
 
     @Test
     public void acceptCookies() throws InterruptedException {
-
-
-
         $ (By.cssSelector("#submit_cookies")).click();
-
-
     }
 
     public void closeSaleAdvert() throws  InterruptedException{
@@ -74,13 +71,21 @@ public class testTest {
 
 
     @Test
-    void cookiesPlusLogin() throws InterruptedException {
-
-        HomePage homePage = new HomePage(driver);
-
+    void cookiesAccept() throws InterruptedException {
          acceptCookies();
-         getToLoginPage();
 
     }
 
+
+    @Test
+    void fillOutLoginInfo() throws  InterruptedException{
+         LoginPage loginPage = new LoginPage(driver);
+
+
+         cookiesAccept();
+         loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
+         loginPage.inputTextIntoPWField("protondeeznuts123");
+         loginPage.submitLoginInfo();
+
+    }
 }
