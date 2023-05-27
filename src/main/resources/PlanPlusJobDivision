@@ -17,19 +17,19 @@ Celkom čo mame k dispozici
 2Spatny vstup pri prihlaseni,
 3Search,
 4Pridani zbozi do Kosiku,
-5Zmena adresy??? Lze změnit asi jednoduše.  dokonce bez potvrzení - snad neni moc simple
-6.pridat do oblubenych produktov
-7. přidat recenzi?
-8. test ze vymaze aktualne cookies a acceptne nove pre demostraciu toho ze sa jedna o "ineho" pouzivatela
+5 Zmena údajů uživatele - snad neni moc jednoduché na testing
+6.pridat do oblibenych produktu
+7.přidat recenzi = pokud to neni moc nelegalni :D
+8.test ze vymaze  cookies a acceptne nove pre demonstraci toho ze se jedna o "jineho" uzivatele
+9.email subscription test
+10 odhlasit
 
-9.email subscription test?
-10 odhlasit?
-
+pokud spravne chapu CSV tak
 
 3 CSV Subory:
-    1?
-    2?
-    3?
+    1 search
+    2 ruzne inputy pro prihlaseni/registraci/odber
+    3 ruzne recenze
 
 SELENIDE? zo spravy v discorde:
 
