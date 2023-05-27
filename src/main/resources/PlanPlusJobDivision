@@ -1,0 +1,62 @@
+Franta Metal
+
+768149844
+
+Školní 12 Rudolfov 37371
+
+testingseleniumcvut@protonmail.com
+protondeeznuts123
+
+
+=========================
+
+Celkom čo mame k dispozici
+
+
+1Prihlaseni,
+2Spatny vstup pri prihlaseni,
+3Search,
+4Pridani zbozi do Kosiku,
+5Zmena adresy??? Lze změnit asi jednoduše.  dokonce bez potvrzení
+6.pridat do oblubenych produktov
+7. přidat recenzi?
+8. test ze vymaze aktualne cookies a acceptne nove pre demostraciu toho ze sa jedna o "ineho" pouzivatela
+
+9.
+10
+
+
+3 CSV Subory:
+    1?
+    2?
+    3?
+
+SELENIDE? zo spravy v discorde:
+
+    testy ma rozdelene na dve sekcie
+    demo testy ktore testuju nejaku konkretnu funkcionalitu stranky
+    priklad je registracny formular takze jeden z demo testov je ze testuje sa konkretne iba ten registracny formular
+    a potom mam druhu sekciu kde su viac komplexne testy
+    napriklad pouzivatel sa mi registruje nasledne sa prihlasi nasledne nieco vyhlada atd atd atd
+    takze je to dajme tomu viac "demo" testov v kope
+
+
+NOTE = metalshop pri registraci nepotreboval potvrzeni, stacilo mu platne ty pole všecka...
+ neviem jestli poznal ale jestli adresa existuje nebo ne...
+
+
+
+Jeste potrebujes pouzit CSV... JAK??
+
+Adam(){
+
+
+
+}
+
+
+
+Vaness(){
+
+
+}
