@@ -18,7 +18,7 @@ public class ProfilePage {
 
 
 
-    
+
     @FindBy(how = How.CSS,using = "#name")
     WebElement nameField;
 
@@ -41,6 +41,14 @@ public class ProfilePage {
 
 
 
+    @FindBy(how = How.CSS,using = "a[href='/logout']")
+    WebElement logoutButton;
+
+
+
+
+    @FindBy(how = How.CSS,using = "#pkms")
+    WebElement wantToRecieveNewsletterCB;
 
 
 

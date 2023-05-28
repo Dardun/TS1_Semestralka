@@ -62,6 +62,8 @@ public class testTest {
     @FindBy(how = How.CSS,using = "div[class='container'] input[value='Odebírat']")
     WebElement subscribeToNewsletterButton;
 
+    @FindBy(how = How.CSS,using = "a[href='https://www.metalshop.cz/s/doprava-a-platba/']")
+    WebElement shippingInfoButton;
 
 
 
