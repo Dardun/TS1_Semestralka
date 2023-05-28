@@ -60,13 +60,7 @@ public class SimpleTests {
     }
 
 
-    public void closeSaleAdvert() throws  InterruptedException{
 
-
-        HomePage homePage = new HomePage(driver);
-
-        homePage.closeSaleAdvert();
-    }
 
 
 

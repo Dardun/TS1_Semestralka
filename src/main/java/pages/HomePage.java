@@ -19,9 +19,6 @@ public class HomePage {
     @FindBy(how = How.CSS, using = "#head_nav > ul > li:nth-child(3) > a")
     private WebElement loginButtonAnchor;
 
-    @FindBy(how = How.CSS,using = "#newsletter-modal-in > div > div > div > button")
-    private WebElement closeSaleAdvertButton;
-
     @FindBy(how = How.CSS, using = "#header > div.container.top-header-margin > div.col-xs-4.col-2xs-4.small-devices-displayed > div > a:nth-child(4)")
     private WebElement cartButtonAnchor;
 
@@ -51,10 +48,6 @@ public class HomePage {
 
     public HomePage openShop() {
         driver.get("https://metalshop.cz/");
-        return this;
-    }
-    public HomePage closeSaleAdvert() {
-        closeSaleAdvertButton.click();
         return this;
     }
 

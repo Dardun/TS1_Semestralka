@@ -1,8 +1,10 @@
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import pages.HomePage;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -33,6 +35,8 @@ public class UtilTestClass {
 
 
 
+    @FindBy(how = How.CSS,using = "#newsletter-modal-in > div > div > div > button")
+    private WebElement closeSaleAdvertButton;
 
 
     @Test
@@ -40,7 +44,13 @@ public class UtilTestClass {
         $ (By.cssSelector("#submit_cookies")).click();
 
     }
+    public void closeSaleAdvert(WebDriver driver) throws  InterruptedException{
 
+
+        closeSaleAdvertButton.click();
+
+
+    }
 
 
 
