@@ -1,6 +1,5 @@
 import com.codeborne.selenide.WebDriverRunner;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.apache.commons.text.StringEscapeUtils;
 import org.asynchttpclient.util.UriEncoder;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
@@ -17,17 +16,17 @@ import pages.RegistrationPage;
 
 import java.time.Duration;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.element;
 
-public class testTest {
+public class SimpleTests {
 
     WebDriver driver;
 
+    UtilTestClass utilTestClass = new UtilTestClass();
 
     @BeforeAll
     static void setupAll(){
@@ -43,39 +42,7 @@ public class testTest {
 
 
 
-    @FindBy(how = How.CSS,using = ".fa.fa-facebook-square")
-    WebElement bottomBarFaceBook;
-    @FindBy(how = How.CSS,using = ".fa.fa-instagram")
-    WebElement bottomBarInstagram;
-    @FindBy(how = How.CSS,using = ".fa.fa-youtube-play")
-    WebElement bottomBarYouTube;
-    @FindBy(how = How.CSS,using = "img[alt='tiktok']")
-    WebElement bottomBarTikTok;
-    @FindBy(how = How.CSS,using = ".fa.fa-user")
-    WebElement bottomBarCustomerPhotos;
 
-
-
-
-    @FindBy(how = How.CSS,using = "div[class='container'] input[placeholder='Zadejte Váš e-mail']")
-    WebElement subscribeEmailField;
-    @FindBy(how = How.CSS,using = "div[class='container'] input[value='Odebírat']")
-    WebElement subscribeToNewsletterButton;
-
-    @FindBy(how = How.CSS,using = "a[href='https://www.metalshop.cz/s/doprava-a-platba/']")
-    WebElement shippingInfoButton;
-
-
-
-
-
-
-
-
-//     @AfterEach
-//    void teardown(){
-//         driver.quit();
-//     }
 
 
 
@@ -102,11 +69,6 @@ public class testTest {
     }
 
 
-    @Test
-    void acceptCookies() throws InterruptedException {
-        $ (By.cssSelector("#submit_cookies")).click();
-
-    }
 
 
     @Test
@@ -114,7 +76,7 @@ public class testTest {
         LoginPage loginPage = new LoginPage(driver);
 
 
-        acceptCookies();
+        utilTestClass.acceptCookies();
         loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
         loginPage.inputTextIntoPWField("protondeeznuts123");
         loginPage.submitLoginInfo();
@@ -132,7 +94,7 @@ public class testTest {
         LoginPage loginPage = new LoginPage(driver);
 
 
-        acceptCookies();
+        utilTestClass.acceptCookies();
         loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
         loginPage.inputTextIntoPWField("wrongPassword123");
         loginPage.submitLoginInfo();
@@ -169,7 +131,7 @@ public class testTest {
     void searchTestFromHomePage() throws InterruptedException, URISyntaxException {
 
         HomePage homePage = new HomePage(driver);
-        acceptCookies();
+        utilTestClass.acceptCookies();
         search("4=čárkaěěxxdd");
         driver.close();
         driver.quit();
@@ -193,7 +155,7 @@ public class testTest {
     @Test
     public void logOutTest() throws InterruptedException {
         LoginPage loginPage = new LoginPage(driver);
-        acceptCookies();
+        utilTestClass.acceptCookies();
         loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
         loginPage.inputTextIntoPWField("protondeeznuts123");
         loginPage.submitLoginInfo(); // firstly, logging into the account
@@ -213,7 +175,7 @@ public class testTest {
     @Test
     public void addProductToCartTest() throws InterruptedException {
         HomePage homePage = new HomePage(driver);
-        acceptCookies();
+        utilTestClass.acceptCookies();
         homePage.chooseCategory(homePage.getWomenDropdown())
                 .addProductToCart(driver.findElement(By.cssSelector("#page-section > section > div > section > div.products_header.col-sm-12 > div > div.mp_category.vypis-filtre > div.row.row-products > div:nth-child(3) > div > a")));
 //        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
