@@ -173,6 +173,10 @@ public class SimpleTests {
     }
 
     @Test
+
+
+
+    //TODO port to util class, rename methods it uses
     public void addProductToCartTest() throws InterruptedException {
         HomePage homePage = new HomePage(driver);
         utilTestClass.acceptCookies();
