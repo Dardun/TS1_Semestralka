@@ -38,16 +38,21 @@ protondeeznuts123
 
 Celkom čo mame k dispozici
 
+ja jsem udelala 5 procesnich testu na jeden pruchod ze scenare,
+ kterej jsem generovala pomoci tech skolnich aplikaci
 
-1Prihlaseni,
-2Spatny vstup pri prihlaseni,
+LEGALNI :D
+
+1 Spatny vstup pri registraci
+2pri prihlaseni,
 3Search,
 4Pridani zbozi do Kosiku,
-5 Zmena údajů uživatele - snad neni moc jednoduché na testing
+5 Zmena údajů uživatele - zkusit, zmenit stranku, vratit se,
+ zkontrolovat trvanlivost změn, vrátit původní hodnotu kvůli legalitě
 6.pridat do oblibenych produktu
-7.přidat recenzi = pokud to neni moc nelegalni :D
+
 8.test ze vymaze  cookies a acceptne nove pre demonstraci toho ze se jedna o "jineho" uzivatele
-9.email subscription test
+9.email subscription test... pujde asi jen jednou?
 10 odhlasit
 
 pokud spravne chapu CSV tak
@@ -56,6 +61,16 @@ pokud spravne chapu CSV tak
     1 search
     2 ruzne inputy pro prihlaseni/registraci/odber
     3 ruzne recenze
+
+
+
+ZBYTEK TESTU BUDE END TO END:
+
+od prihlaseni až po odhlášení
+10 variací, třeba 5 steps each.
+
+
+
 
 SELENIDE? zo spravy v discorde:
 

@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.HomePage;
@@ -38,6 +40,34 @@ public class testTest {
          driver = new ChromeDriver();
          WebDriverRunner.setWebDriver(driver);
      }
+
+
+
+    @FindBy(how = How.CSS,using = ".fa.fa-facebook-square")
+    WebElement bottomBarFaceBook;
+    @FindBy(how = How.CSS,using = ".fa.fa-instagram")
+    WebElement bottomBarInstagram;
+    @FindBy(how = How.CSS,using = ".fa.fa-youtube-play")
+    WebElement bottomBarYouTube;
+    @FindBy(how = How.CSS,using = "img[alt='tiktok']")
+    WebElement bottomBarTikTok;
+    @FindBy(how = How.CSS,using = ".fa.fa-user")
+    WebElement bottomBarCustomerPhotos;
+
+
+
+
+    @FindBy(how = How.CSS,using = "div[class='container'] input[placeholder='Zadejte Váš e-mail']")
+    WebElement subscribeEmailField;
+    @FindBy(how = How.CSS,using = "div[class='container'] input[value='Odebírat']")
+    WebElement subscribeToNewsletterButton;
+
+
+
+
+
+
+
 
 
 //     @AfterEach
