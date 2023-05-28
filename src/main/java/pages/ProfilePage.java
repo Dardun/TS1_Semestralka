@@ -108,9 +108,10 @@ public class ProfilePage {
 
         ordersButton.click();
     }
-    public void logOut(){
+    public HomePage logOut(){
         logoutButton.click();
 
+        return new HomePage(driver);
     }
     public void clickActiveTabButton(){
 
