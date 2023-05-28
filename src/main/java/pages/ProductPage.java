@@ -14,10 +14,8 @@ public class ProductPage {
     private WebDriver driver;
 
     @FindBy(how = How.CSS,using = "svg")
-    WebElement saveProductTofavorites;
-    @FindBy(how = How.CSS,using = "#pass")
-    WebElement passwordField;
-    @FindBy(how = How.CSS,using = "#pass_ver")
+    WebElement saveProductTofavoritesButton;
+
     WebElement passwordVerificationField;
     // Find all web elements whose selectors start with "#variation_select"
     //for example size of a tshirt
@@ -25,12 +23,50 @@ public class ProductPage {
 
 
     @FindBy(how = How.CSS,using ="#buy")
-    WebElement addToCart;
+    WebElement addToCartButton;
 
 
 
     //appears if sold out
     @FindBy(how = How.CSS,using =".sold_out_detail")
-    WebElement soldOutBox;
+    WebElement soldOutContainer;
+
+
+
+    public void addProductToFavorites(){
+
+        saveProductTofavoritesButton.click();
+    }
+
+
+    //if index too large, picks the largest
+    public void selectVariationViaIndex(int index) throws Exception {
+
+        if (index<0){
+            throw new Exception("faulty request!");
+        }
+
+
+        int productVariationNumber = productVariationElements.size();
+
+        if(index+1>productVariationNumber){
+            index = productVariationNumber+1;
+        }
+
+
+        WebElement variationIndexElement = productVariationElements.get(index);
+
+        variationIndexElement.click();
+
+
+
+        addToCartButton.click();
+
+    }
+    public void addProductToCart(){
+
+        addToCartButton.click();
+
+    }
 
 }

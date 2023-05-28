@@ -61,6 +61,10 @@ public class ProfilePage {
     WebElement firmDIC;
     @FindBy(how = How.CSS,using = "#f_zip_code")
     WebElement firmZIP;
+    @FindBy(how = How.CSS,using = "#f_ico")
+    WebElement firmICO;
+    @FindBy(how = How.CSS,using = "#f_city")
+    WebElement firmCity;
     @FindBy(how = How.CSS,using = "input[value='Odešlete informace']")
     WebElement firmSubmit;
 
@@ -85,6 +89,83 @@ public class ProfilePage {
     WebElement profilePhotosButton;
 
 
+
+
+
+
+    public void goToProfilePhotosTab(){
+
+        profilePhotosButton.click();
+    }
+    public void goToCreditsTab(){
+        creditsButton.click();
+    }
+    public void goToProfileTab(){
+
+        profileInfoButton.click();
+    }
+    public void goToOrdersTab(){
+
+        ordersButton.click();
+    }
+    public void logOut(){
+        logoutButton.click();
+
+    }
+    public void clickActiveTabButton(){
+
+        //SHOULD do nothing
+        activeTabButton.click();
+    }
+    public void fillOutFirmAndSubmit(String name, String street, String ico, String city,
+                                     String dic, String zip){
+
+        firmName.sendKeys(name);
+        firmStreet.sendKeys(street);
+        firmICO.sendKeys(ico);
+        firmCity.sendKeys(city);
+        firmDIC.sendKeys(dic);
+        firmZIP.sendKeys(zip);
+
+
+        firmSubmit.click();
+    }
+    public void clickNewsletterCB(){
+        wantToRecieveNewsletterCB.click();
+    }
+    public void changeName(String name){
+
+        nameField.sendKeys(name);
+    }
+    public void changeSurname(String surname){
+
+        surnameField.sendKeys(surname);
+    }
+    public void changeEmail(String email){
+
+        emailField.sendKeys(email);
+    }
+    public void changePassword(String pw){
+
+        passwordField.sendKeys(pw);
+        passwordVerificationField.sendKeys(pw);
+    }
+    public void changeStreetAndHouseNum(String streetAndHouseNum){
+
+        streetField.sendKeys(streetAndHouseNum);
+    }
+    public void changeCity(String city){
+        cityField.sendKeys(city);
+
+    }
+    public void changeZIP(String zip){
+
+        zipField.sendKeys(zip);
+    }
+    public void changePhone(String phone){
+
+        phoneField.sendKeys(phone);
+    }
 
 
 
