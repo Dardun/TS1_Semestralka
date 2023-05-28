@@ -16,15 +16,6 @@ import static com.codeborne.selenide.Selenide.$;
 public class HomePage {
     private WebDriver driver;
 
-    @FindBy(how = How.CSS, using = "#head_nav > ul > li:nth-child(3) > a")
-    private WebElement loginButtonAnchor;
-
-    @FindBy(how = How.CSS, using = "#header > div.container.top-header-margin > div.col-xs-4.col-2xs-4.small-devices-displayed > div > a:nth-child(4)")
-    private WebElement cartButtonAnchor;
-
-    @FindBy(how = How.CSS, using = "#header > div.container.top-header-margin > div.col-xs-4.col-2xs-4.small-devices-displayed > div > a:nth-child(2)")
-    private WebElement favoritesButtonAnchor;
-
     @FindBy(how = How.CSS, using = "#mySidenav > div > ul > li.dropdown.bands > a")
     private WebElement bandsButtonAnchor;
 
@@ -51,22 +42,6 @@ public class HomePage {
         return this;
     }
 
-    public ShoppingCartPage clickShoppingCartOption() {
-        cartButtonAnchor.click();
-        return new ShoppingCartPage(driver);
-    }
-
-    public LoginPage clickLoginOption() {
-
-        loginButtonAnchor.click();
-        return new LoginPage(driver);
-    }
-
-
-    public FavoriteProductsPage clickFavoritesOption() {
-        favoritesButtonAnchor.click();
-        return new FavoriteProductsPage(driver);
-    }
 
     public BandsPage clickBandsOption() {
         bandsButtonAnchor.click();
