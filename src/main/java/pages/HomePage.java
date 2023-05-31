@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+
 import static com.codeborne.selenide.Selenide.$;
 
 public class HomePage {
@@ -53,12 +54,11 @@ public class HomePage {
         return this;
     }
 
-    public HomePage addProductToCart(WebElement element) {
+    public HomePage selectProductsSize(WebElement element) {
         element.click();
-        driver.findElement(By.cssSelector("#variation_select_135033_1_2 > div")).click();
+        driver.findElement(By.cssSelector("#variation_select_135033_1_2")).click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("#buy"))));
-//        driver.findElement(By.cssSelector("#buy")).click();
         return this;
     }
 

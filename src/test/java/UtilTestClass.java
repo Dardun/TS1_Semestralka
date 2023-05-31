@@ -5,10 +5,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.FavoriteProductsPage;
 import pages.HomePage;
 import pages.LoginPage;
 import pages.ShoppingCartPage;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$;
 
@@ -96,6 +100,11 @@ public class UtilTestClass {
         WebElement favoritesButtonAnchor = Selenide.$("#header > div.container.top-header-margin > div.col-xs-4.col-2xs-4.small-devices-displayed > div > a:nth-child(2)");
         favoritesButtonAnchor.click();
         return new FavoriteProductsPage(driver);
+    }
+
+    public void wait10SecondsFor(WebDriver driver, WebElement element) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(element));
     }
 
 

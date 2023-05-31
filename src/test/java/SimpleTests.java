@@ -173,18 +173,23 @@ public class SimpleTests {
     }
 
     @Test
-
-
-
     //TODO port to util class, rename methods it uses
     public void addProductToCartTest() throws InterruptedException {
         HomePage homePage = new HomePage(driver);
         utilTestClass.acceptCookies();
-        homePage.chooseCategory(homePage.getWomenDropdown())
-                .addProductToCart(driver.findElement(By.cssSelector("#page-section > section > div > section > div.products_header.col-sm-12 > div > div.mp_category.vypis-filtre > div.row.row-products > div:nth-child(3) > div > a")));
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-//        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("#page-section > section > div > section > div.products_header.col-sm-12 > div > div.mp_category.vypis-filtre > div.row.row-products > div:nth-child(3) > div"))));
-//        homePage.addProductToCart(homePage.getWomenDropdown(), driver.findElement(By.cssSelector("#page-section > section > div > section > div.products_header.col-sm-12 > div > div.mp_category.vypis-filtre > div.row.row-products > div:nth-child(3) > div > a")));
+        HomePage homePage1 = homePage.chooseCategory(homePage.getWomenDropdown());
+        utilTestClass.closeSaleAdvert(driver);
+        HomePage homePage2 = homePage1.selectProductsSize(driver.findElement(By.cssSelector("#page-section > section > div > section > div.products_header.col-sm-12 > div > div.mp_category.vypis-filtre > div.row.row-products > div:nth-child(3) > div > a")));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait.until((WebDriver driver) -> {
+            String border = driver.findElement(By.cssSelector("#variation_select_135033_1_2 > div")).getCssValue("border");
+            return border.equals("1px solid rgb(236, 127, 0)");
+        });
+        driver.findElement(By.cssSelector("#buy")).click();
+        WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait2.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#bought-too-modal > div > div")));
+        Assertions.assertEquals("1", driver.findElement(By.cssSelector("#small_cart_amount")).getText());
+
     }
 
 }
