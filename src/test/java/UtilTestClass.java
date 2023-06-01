@@ -3,12 +3,9 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.FavoriteProductsPage;
-import pages.HomePage;
 import pages.LoginPage;
 import pages.ShoppingCartPage;
 
@@ -111,7 +108,12 @@ public class UtilTestClass {
         WebElement element = driver.findElement(By.cssSelector("#page-index > div.social-media > div:nth-child(2) > div > form > input[type=text]:nth-child(1)"));
         element.sendKeys(email);
         driver.findElement(By.cssSelector("#page-index > div.social-media > div:nth-child(2) > div > form > input.button")).click();
-//        return homePage;
+    }
+
+    public void selectProductsSize(WebDriver driver, WebElement element) {
+        element.click();
+        driver.findElement(By.cssSelector("#variation_select_135033_1_2")).click();
+        wait10SecondsFor(driver, driver.findElement(By.cssSelector("#buy")));
     }
 
 

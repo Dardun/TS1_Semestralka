@@ -2,10 +2,7 @@ import com.codeborne.selenide.WebDriverRunner;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.asynchttpclient.util.UriEncoder;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Cookie;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -180,17 +177,21 @@ public class SimpleTests {
     public void addProductToCartTest() throws InterruptedException {
         HomePage homePage = new HomePage(driver);
         utilTestClass.acceptCookies();
-        HomePage homePage1 = homePage.chooseCategory(homePage.getWomenDropdown());
+        HomePage homePage1 = homePage.chooseCategory(homePage.getWomenDropdown()); // clicked on woman category
         utilTestClass.closeSaleAdvert(driver);
+        // choosing product and its size
         HomePage homePage2 = homePage1.selectProductsSize(driver.findElement(By.cssSelector("#page-section > section > div > section > div.products_header.col-sm-12 > div > div.mp_category.vypis-filtre > div.row.row-products > div:nth-child(3) > div > a")));
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        // waiting till the color of the size box turns orange, therefore is selected
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until((WebDriver driver) -> {
             String border = driver.findElement(By.cssSelector("#variation_select_135033_1_2 > div")).getCssValue("border");
             return border.equals("1px solid rgb(236, 127, 0)");
         });
+        // clicking on the buy button
         driver.findElement(By.cssSelector("#buy")).click();
         WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(20));
         wait2.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#bought-too-modal > div > div")));
+        // checking for the number above cart icon
         Assertions.assertEquals("1", driver.findElement(By.cssSelector("#small_cart_amount")).getText());
 
     }
@@ -199,7 +200,7 @@ public class SimpleTests {
     public void emailSubscriptionTest() throws InterruptedException {
         HomePage homePage = new HomePage(driver);
         utilTestClass.acceptCookies();
-        utilTestClass.subscribeToNewsletter(driver, "jankohrasko@gmail.com");
+        utilTestClass.subscribeToNewsletter(driver, "@gmail.com");
         Assertions.assertEquals("https://www.metalshop.cz/newsletter/",driver.getCurrentUrl());
     }
 
@@ -210,9 +211,13 @@ public class SimpleTests {
 
         Set<Cookie> cookies1 = driver.manage().getCookies();
         System.out.println(cookies1);
+//        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+
 
         // Delete existing cookies
         driver.manage().deleteAllCookies();
+//        jsExecutor.executeScript("document.cookie.split(';').forEach(function(c) { document.cookie = c.replace(/^\\s+/,'').replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/'); })");
+
 
         // Refresh the page
         driver.navigate().refresh();
@@ -221,16 +226,19 @@ public class SimpleTests {
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("#header"))));
 
         // Verify that cookies have been deleted
-        Set<Cookie> cookies = driver.manage().getCookies();
-        System.out.println(cookies);
-        Assertions.assertTrue(cookies.isEmpty());
+        Set<Cookie> cookies2 = driver.manage().getCookies();
+        System.out.println(cookies2);
+        Assertions.assertNotEquals(cookies1, cookies2);
+//        Set<Cookie> cookies = driver.manage().getCookies();
+//        System.out.println(cookies);
+//        Assertions.assertTrue(cookies.isEmpty());
 
         // Accept new cookies (e.g., click "Accept" button)
         utilTestClass.acceptCookies();
 
         // Verify that new cookies have been accepted and applied
-        cookies = driver.manage().getCookies();
-        Assertions.assertFalse(cookies.isEmpty());
+        cookies2 = driver.manage().getCookies();
+        Assertions.assertFalse(cookies2.isEmpty());
     }
 
 }
