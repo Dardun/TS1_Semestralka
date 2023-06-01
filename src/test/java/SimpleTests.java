@@ -3,6 +3,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.asynchttpclient.util.UriEncoder;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -18,6 +19,8 @@ import java.time.Duration;
 
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
+import java.util.List;
+import java.util.Set;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.element;
@@ -190,6 +193,44 @@ public class SimpleTests {
         wait2.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#bought-too-modal > div > div")));
         Assertions.assertEquals("1", driver.findElement(By.cssSelector("#small_cart_amount")).getText());
 
+    }
+
+    @Test
+    public void emailSubscriptionTest() throws InterruptedException {
+        HomePage homePage = new HomePage(driver);
+        utilTestClass.acceptCookies();
+        utilTestClass.subscribeToNewsletter(driver, "jankohrasko@gmail.com");
+        Assertions.assertEquals("https://www.metalshop.cz/newsletter/",driver.getCurrentUrl());
+    }
+
+    @Test
+    public void newUserDataTest() throws InterruptedException {
+        HomePage homePage = new HomePage(driver);
+        utilTestClass.acceptCookies();
+
+        Set<Cookie> cookies1 = driver.manage().getCookies();
+        System.out.println(cookies1);
+
+        // Delete existing cookies
+        driver.manage().deleteAllCookies();
+
+        // Refresh the page
+        driver.navigate().refresh();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("#header"))));
+
+        // Verify that cookies have been deleted
+        Set<Cookie> cookies = driver.manage().getCookies();
+        System.out.println(cookies);
+        Assertions.assertTrue(cookies.isEmpty());
+
+        // Accept new cookies (e.g., click "Accept" button)
+        utilTestClass.acceptCookies();
+
+        // Verify that new cookies have been accepted and applied
+        cookies = driver.manage().getCookies();
+        Assertions.assertFalse(cookies.isEmpty());
     }
 
 }

@@ -107,6 +107,12 @@ public class UtilTestClass {
         wait.until(ExpectedConditions.visibilityOf(element));
     }
 
+    public void subscribeToNewsletter(WebDriver driver, String email) {
+        WebElement element = driver.findElement(By.cssSelector("#page-index > div.social-media > div:nth-child(2) > div > form > input[type=text]:nth-child(1)"));
+        element.sendKeys(email);
+        driver.findElement(By.cssSelector("#page-index > div.social-media > div:nth-child(2) > div > form > input.button")).click();
+//        return homePage;
+    }
 
 
 
