@@ -213,7 +213,7 @@ public class SimpleTests {
         System.out.println(cookies1);
 //        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 
-
+        driver.get("https://www.metalshop.cz");
         // Delete existing cookies
         driver.manage().deleteAllCookies();
 //        jsExecutor.executeScript("document.cookie.split(';').forEach(function(c) { document.cookie = c.replace(/^\\s+/,'').replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/'); })");
