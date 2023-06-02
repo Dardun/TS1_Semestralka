@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.HomePage;
 import pages.LoginPage;
+import pages.ProductPage;
 import pages.RegistrationPage;
 
 import java.time.Duration;
@@ -211,13 +212,11 @@ public class SimpleTests {
 
         Set<Cookie> cookies1 = driver.manage().getCookies();
         System.out.println(cookies1);
-//        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+        driver.manage().deleteAllCookies();
+
 
         driver.get("https://www.metalshop.cz");
         // Delete existing cookies
-        driver.manage().deleteAllCookies();
-//        jsExecutor.executeScript("document.cookie.split(';').forEach(function(c) { document.cookie = c.replace(/^\\s+/,'').replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/'); })");
-
 
         // Refresh the page
         driver.navigate().refresh();
@@ -229,6 +228,7 @@ public class SimpleTests {
         Set<Cookie> cookies2 = driver.manage().getCookies();
         System.out.println(cookies2);
         Assertions.assertNotEquals(cookies1, cookies2);
+        // This still doesn't work but probably should
 //        Set<Cookie> cookies = driver.manage().getCookies();
 //        System.out.println(cookies);
 //        Assertions.assertTrue(cookies.isEmpty());
@@ -237,8 +237,26 @@ public class SimpleTests {
         utilTestClass.acceptCookies();
 
         // Verify that new cookies have been accepted and applied
-        cookies2 = driver.manage().getCookies();
-        Assertions.assertFalse(cookies2.isEmpty());
+        Set<Cookie> cookies3 = driver.manage().getCookies();
+        Assertions.assertFalse(cookies3.isEmpty());
+    }
+
+    @Test
+    public void addReviewTest() throws InterruptedException {
+//        HomePage homePage = new HomePage(driver);
+//        utilTestClass.acceptCookies();
+//        HomePage homePage1 = homePage.chooseCategory(homePage.getWomenDropdown());
+//        utilTestClass.closeSaleAdvert(driver);
+//        driver.findElement(By.cssSelector("#page-section > section > div > section > div.products_header.col-sm-12 > div > div.mp_category.vypis-filtre > div.row.row-products > div:nth-child(7) > div > a")).click();
+//        ProductPage productPage = homePage1.selectProduct(driver.findElement(By.cssSelector("#page-section > section > div > section > div.products_header.col-sm-12 > div > div.mp_category.vypis-filtre > div.row.row-products > div:nth-child(7) > div > a")))
+//                .openReviewOption()
+//                .addNewReview();
+        HomePage homePage = new HomePage(driver);
+        utilTestClass.acceptCookies();
+        HomePage homePage1 = homePage.chooseCategory(homePage.getWomenDropdown()); // clicked on woman category
+        utilTestClass.closeSaleAdvert(driver);
+        // choosing product and its size
+        HomePage homePage2 = homePage1.selectProductsSize(driver.findElement(By.cssSelector("#page-section > section > div > section > div.products_header.col-sm-12 > div > div.mp_category.vypis-filtre > div.row.row-products > div:nth-child(3) > div > a")));
     }
 
 }

@@ -43,6 +43,11 @@ public class HomePage {
         return this;
     }
 
+    public ProductPage selectProduct(WebElement element) {
+        element.click();
+        return new ProductPage(driver);
+    }
+
 
     public BandsPage clickBandsOption() {
         bandsButtonAnchor.click();
