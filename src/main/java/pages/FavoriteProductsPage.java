@@ -15,6 +15,15 @@ public class FavoriteProductsPage {
     }
 
 
+    public boolean areFavoritesEmpty(){
+        List<WebElement> elements = driver.findElements(By.className("product-item-info"));
+
+        if(elements.size()>0){
+            return false;
+        }
+
+        return true;
+    }
 
 
     public void clickProductInFavorites(int index){

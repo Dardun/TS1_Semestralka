@@ -1,5 +1,6 @@
 import com.codeborne.selenide.WebDriverRunner;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.logging.Log;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -70,7 +71,15 @@ public class EndToEndTests {
         utilTestClass.clickFavoritesOption(driver);
 
         FavoriteProductsPage favoriteProductsPage=  new FavoriteProductsPage(driver);
-        favoriteProductsPage.clickProductInFavorites(0);
+
+        if(!favoriteProductsPage.areFavoritesEmpty()) {
+            favoriteProductsPage.clickProductInFavorites(0);
+        }
+
+        ProfilePage profilePage = utilTestClass.clickProfile(driver);
+
+
+        profilePage.logOut();
 
 //        simpleTests.login
     }

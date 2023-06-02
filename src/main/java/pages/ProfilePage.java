@@ -88,9 +88,9 @@ public class ProfilePage {
     @FindBy(how = How.CSS,using = "#page-account > section > div > section > div.panel-heading > ul > li:nth-child(4) > a")
     WebElement profilePhotosButton;
 
-
-
-
+    public ProfilePage(WebDriver driver) {
+        this.driver = driver;
+    }
 
 
     public void goToProfilePhotosTab(){

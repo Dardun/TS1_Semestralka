@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.FavoriteProductsPage;
 import pages.LoginPage;
+import pages.ProfilePage;
 import pages.ShoppingCartPage;
 
 import java.net.URISyntaxException;
@@ -87,6 +88,13 @@ public class UtilTestClass {
 
         cartButtonAnchor.click();
         return new ShoppingCartPage(driver);
+    }
+
+    public ProfilePage clickProfile(WebDriver driver) {
+        WebElement profilePageAnchor = Selenide.$("#head_nav > ul > li:nth-child(3) > a > div.name");
+
+        profilePageAnchor.click();
+        return new ProfilePage(driver);
     }
 
     public LoginPage clickLoginOption(WebDriver driver) {
