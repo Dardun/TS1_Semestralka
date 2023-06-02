@@ -239,20 +239,17 @@ public class SimpleTests {
 
     @Test
     public void addReviewTest() throws InterruptedException {
-//        HomePage homePage = new HomePage(driver);
-//        utilTestClass.acceptCookies();
-//        HomePage homePage1 = homePage.chooseCategory(homePage.getWomenDropdown());
-//        utilTestClass.closeSaleAdvert(driver);
-//        driver.findElement(By.cssSelector("#page-section > section > div > section > div.products_header.col-sm-12 > div > div.mp_category.vypis-filtre > div.row.row-products > div:nth-child(7) > div > a")).click();
-//        ProductPage productPage = homePage1.selectProduct(driver.findElement(By.cssSelector("#page-section > section > div > section > div.products_header.col-sm-12 > div > div.mp_category.vypis-filtre > div.row.row-products > div:nth-child(7) > div > a")))
-//                .openReviewOption()
-//                .addNewReview();
-        HomePage homePage = new HomePage(driver);
+        driver.get("https://www.metalshop.cz/p/135033-tricko-unisex-killstar-soul-card-black-ksra007941/");
         utilTestClass.acceptCookies();
-        HomePage homePage1 = homePage.chooseCategory(homePage.getWomenDropdown()); // clicked on woman category
-        utilTestClass.closeSaleAdvert(driver);
-        // choosing product and its size
-        HomePage homePage2 = homePage1.selectProductsSize(driver.findElement(By.cssSelector("#page-section > section > div > section > div.products_header.col-sm-12 > div > div.mp_category.vypis-filtre > div.row.row-products > div:nth-child(3) > div > a")));
+        ProductPage productPage = new ProductPage(driver)
+                .openReviewOption()
+                .addNewReview();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("#product_rating_form > div.stars"))));
+        productPage.selectNumberOfStars(5);
+        productPage.fillInReviewForm("Franta Metal", "testingseleniumcvut@protonmail.com", "Veľmi spokojný s produktom.");
+//        driver.findElement(By.cssSelector("#product_rating_form > input.submit.next")).click();
+
     }
 
 }

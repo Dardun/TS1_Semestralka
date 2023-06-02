@@ -43,7 +43,7 @@ public class ProductPage {
 
     public ProductPage(WebDriver driver) {
         this.driver = driver;
-        stars = driver.findElements(By.cssSelector("#product_rating_form > div.stars"));
+//        stars = driver.findElements(By.cssSelector("#product_rating_form > div.stars"));
         productVariationElements = driver.findElements(By.cssSelector("[id^='variation_select']"));
 
 
@@ -113,13 +113,15 @@ public class ProductPage {
     }
 
     public  ProductPage selectNumberOfStars(int number) {
-        if (number > stars.size() -1) {
-            stars.get(stars.size() - 2).click();
-        } else if (number + 1 < stars.size() - 1) {
-            stars.get(0).click();
-        } else {
-            stars.get(number).click();
-        }
+        driver.findElement(By.cssSelector("#rating_star_" + String.valueOf(number))).click();
+
+        return this;
+    }
+
+    public ProductPage fillInReviewForm(String name, String email, String text) {
+        driver.findElement(By.cssSelector("#rating_name")).sendKeys(name);
+        driver.findElement(By.cssSelector("#rating_email")).sendKeys(email);
+        driver.findElement(By.cssSelector("#rating_text")).sendKeys(text);
         return this;
     }
 

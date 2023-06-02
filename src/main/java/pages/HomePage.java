@@ -45,6 +45,8 @@ public class HomePage {
 
     public ProductPage selectProduct(WebElement element) {
         element.click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("#page-product > section > div.container.detail-mobile-padding-none > div > div.col-sm-6.detail_fr"))));
         return new ProductPage(driver);
     }
 
