@@ -1,6 +1,5 @@
 import com.codeborne.selenide.WebDriverRunner;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.apache.commons.logging.Log;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,7 +40,7 @@ public class EndToEndTests {
 
 
     @Test
-    public void firstTest() throws Exception {
+    public void loggedinE2ETest() throws Exception {
         SimpleTests simpleTests = new SimpleTests();
 
         HomePage homePage = new HomePage(driver);
@@ -68,9 +67,8 @@ public class EndToEndTests {
         productPage.addProductToFavorites();
 
 
-        utilTestClass.clickFavoritesOption(driver);
+        FavoriteProductsPage favoriteProductsPage= utilTestClass.clickFavoritesOption(driver);
 
-        FavoriteProductsPage favoriteProductsPage=  new FavoriteProductsPage(driver);
 
         if(!favoriteProductsPage.areFavoritesEmpty()) {
             favoriteProductsPage.clickProductInFavorites(0);
@@ -82,5 +80,59 @@ public class EndToEndTests {
         profilePage.logOut();
 
 //        simpleTests.login
+    }
+
+
+    @Test
+    public void loggedOutE2ETest() throws Exception {
+
+
+        SimpleTests simpleTests = new SimpleTests();
+
+        HomePage homePage = new HomePage(driver);
+
+        utilTestClass.acceptCookies();
+
+
+        utilTestClass.clickLoginOption(driver);
+
+
+        //testing wrong login information
+        simpleTests.fillOutWrongLoginInfo(driver);
+
+
+
+
+        simpleTests.searchTest("boty", driver);
+
+        SearchResultPage searchResultPage = new SearchResultPage(driver);
+
+        searchResultPage.findAndClickProduct(0);
+
+        ProductPage productPage = new ProductPage(driver);
+
+        //error
+        productPage.addProductToFavorites();
+
+
+        FavoriteProductsPage favoriteProductsPage= utilTestClass.clickFavoritesOption(driver);
+
+
+
+        if(!favoriteProductsPage.areFavoritesEmpty()) {
+            favoriteProductsPage.clickProductInFavorites(0);
+        }
+
+
+        driver.manage().deleteAllCookies();
+
+
+        favoriteProductsPage = new FavoriteProductsPage(driver);
+
+        if(!favoriteProductsPage.areFavoritesEmpty()) {
+            throw new Exception("Favorites shouldn't have anythign when cookies are cleared!");
+        }
+        ProfilePage profilePage = utilTestClass.clickProfile(driver);
+
     }
 }

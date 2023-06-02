@@ -86,11 +86,10 @@ public class SimpleTests {
 
 
     @Test
-    void fillOutWrongLoginInfo() throws  InterruptedException{
+    void fillOutWrongLoginInfo(WebDriver driver) throws  InterruptedException{
         LoginPage loginPage = new LoginPage(driver);
 
 
-        utilTestClass.acceptCookies();
         loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
         loginPage.inputTextIntoPWField("wrongPassword123");
         loginPage.submitLoginInfo();
