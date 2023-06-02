@@ -8,40 +8,62 @@ import org.openqa.selenium.support.How;
 
 import java.util.List;
 
+import static com.codeborne.selenide.Selenide.$;
+
 public class ProductPage {
 
 
     private WebDriver driver;
 
-    @FindBy(how = How.CSS,using = "svg")
+//    @FindBy(how = How.CSS,using = "svg")
     WebElement saveProductTofavoritesButton;
 
     WebElement passwordVerificationField;
     // Find all web elements whose selectors start with "#variation_select"
     //for example size of a tshirt
-    List<WebElement> productVariationElements = driver.findElements(By.cssSelector("[id^='variation_select']"));
+    List<WebElement> productVariationElements;
 
-
-    @FindBy(how = How.CSS,using ="#buy")
     WebElement addToCartButton;
 
 
     //appears if sold out
-    @FindBy(how = How.CSS,using =".sold_out_detail")
+//    @FindBy(how = How.CSS,using =".sold_out_detail")
     WebElement soldOutContainer;
 
 
-    @FindBy(how = How.CSS,using = "#li-tab8 > a")
+//    @FindBy(how = How.CSS,using = "#li-tab8 > a")
     WebElement reviewButtonAnchor;
 
-    @FindBy(how = How.CSS,using ="#product_rating_button")
+//    @FindBy(how = How.CSS,using ="#product_rating_button")
     WebElement addReviewButton;
 
-    List<WebElement> stars = driver.findElements(By.cssSelector("#product_rating_form > div.stars"));
+    List<WebElement> stars;
+//            = driver.findElements(By.cssSelector("#product_rating_form > div.stars"));
 
 
     public ProductPage(WebDriver driver) {
         this.driver = driver;
+        stars = driver.findElements(By.cssSelector("#product_rating_form > div.stars"));
+        productVariationElements = driver.findElements(By.cssSelector("[id^='variation_select']"));
+
+
+        addToCartButton = $("#buy");
+
+
+
+        soldOutContainer = $(".sold_out_detail");
+
+
+
+        reviewButtonAnchor = $("#li-tab8 > a");
+
+
+        addReviewButton = $("#product_rating_button");
+
+
+
+        saveProductTofavoritesButton = $("#product-heart");
+
     }
 
     public void addProductToFavorites(){

@@ -1,3 +1,4 @@
+import com.codeborne.selenide.Driver;
 import com.codeborne.selenide.WebDriverRunner;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.asynchttpclient.util.UriEncoder;
@@ -68,11 +69,10 @@ public class SimpleTests {
 
 
     @Test
-    void fillOutLoginInfo() throws  InterruptedException{
+    void fillOutLoginInfo(WebDriver driver) throws  InterruptedException{
         LoginPage loginPage = new LoginPage(driver);
 
 
-        utilTestClass.acceptCookies();
         loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
         loginPage.inputTextIntoPWField("protondeeznuts123");
         loginPage.submitLoginInfo();
@@ -103,19 +103,16 @@ public class SimpleTests {
 
 
     }
+
+    //Vanes NEVIM JESTLI TO @TEST vubec plati protoze samo je to nespustitelne... musi se to volat jen z te druhe metody
     @Test
-    void search(String searchString) throws URISyntaxException {
+    void searchTest(String searchString, WebDriver driver) throws URISyntaxException {
 
-        $ (By.cssSelector("#fulltextvalue")).sendKeys(searchString);
-
-        $ (By.cssSelector("#search_send")).click();
+        utilTestClass.search(searchString);
 
         String currentUrl = driver.getCurrentUrl();
 
         String decodedURL = URLDecoder.decode(currentUrl);
-
-
-
 
         Assertions.assertEquals("https://www.metalshop.cz/search/" + searchString + "/", decodedURL);
 
@@ -124,11 +121,11 @@ public class SimpleTests {
     UriEncoder encoder;
 
     @Test
-    void searchTestFromHomePage() throws InterruptedException, URISyntaxException {
+    void searchTestFromHomePage(WebDriver driver) throws InterruptedException, URISyntaxException {
 
         HomePage homePage = new HomePage(driver);
         utilTestClass.acceptCookies();
-        search("4=čárkaěěxxdd");
+        searchTest("4=čárkaěěxxdd",driver);
         driver.close();
         driver.quit();
     }

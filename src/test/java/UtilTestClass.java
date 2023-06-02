@@ -9,16 +9,22 @@ import pages.FavoriteProductsPage;
 import pages.LoginPage;
 import pages.ShoppingCartPage;
 
+import java.net.URISyntaxException;
 import java.time.Duration;
 
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
 public class UtilTestClass {
 
 
 
-
-
+    @Test
+    public void search(String searchString){
+        $ (By.cssSelector("#fulltextvalue")).sendKeys(searchString);
+        $ (By.cssSelector("#search_send")).click();
+    }
 
 
     @Test
@@ -94,7 +100,7 @@ public class UtilTestClass {
 
 
     public FavoriteProductsPage clickFavoritesOption(WebDriver driver) {
-        WebElement favoritesButtonAnchor = Selenide.$("#header > div.container.top-header-margin > div.col-xs-4.col-2xs-4.small-devices-displayed > div > a:nth-child(2)");
+        WebElement favoritesButtonAnchor = Selenide.$(byText("OBLÍBENÉ"));
         favoritesButtonAnchor.click();
         return new FavoriteProductsPage(driver);
     }

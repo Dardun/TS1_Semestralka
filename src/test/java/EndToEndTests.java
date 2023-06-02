@@ -7,14 +7,12 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.HomePage;
-
-import java.net.URISyntaxException;
+import pages.*;
 
 public class EndToEndTests {
 
     private WebDriver driver;
-    private WebDriverWait wait;
+    private WebDriverWait webDriverWait;
     UtilTestClass utilTestClass = new UtilTestClass();
 
 
@@ -36,21 +34,43 @@ public class EndToEndTests {
 
      @AfterEach
     void teardown(){
-         driver.quit();
+//         driver.quit();
     }
 
 
 
     @Test
-    public void firstTest() throws URISyntaxException, InterruptedException {
+    public void firstTest() throws Exception {
         SimpleTests simpleTests = new SimpleTests();
 
         HomePage homePage = new HomePage(driver);
 
         utilTestClass.acceptCookies();
-        simpleTests.search("abc");
+
 
         utilTestClass.clickLoginOption(driver);
+
+        simpleTests.fillOutLoginInfo(driver);
+
+
+
+
+        simpleTests.searchTest("boty", driver);
+
+        SearchResultPage searchResultPage = new SearchResultPage(driver);
+
+        searchResultPage.findAndClickProduct(0);
+
+        ProductPage productPage = new ProductPage(driver);
+
+        //error
+        productPage.addProductToFavorites();
+
+
+        utilTestClass.clickFavoritesOption(driver);
+
+        FavoriteProductsPage favoriteProductsPage=  new FavoriteProductsPage(driver);
+        favoriteProductsPage.clickProductInFavorites(0);
 
 //        simpleTests.login
     }
