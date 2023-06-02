@@ -20,12 +20,8 @@ R
 "src/main/java/pages/BandsPage.java,8\a\8a430d957e9f97e3535bbd59f3a5cc8c68c821d8
 Y
 )src/main/java/pages/SearchResultPage.java,7\3\73feb22859b3355e849db72a00789e86699cbdcf
-Y
-)src/main/java/pages/ShoppingCartPage.java,9\c\9c4bec9f1a6934fe55ca901c188f792387a6d57a
 Q
 !src/main/java/pages/HomePage.java,9\6\9655b2a35fae75d92697b79cda62632f93f33e6e
-T
-$src/main/java/pages/ProductPage.java,2\7\27e2de96d614cf1e8b5dde39c36f6f2dd273013b
 R
 "src/main/java/pages/LoginPage.java,4\b\4bdc7fe650a4170fd3332cdfc4dca51f7507f98b
 ]
