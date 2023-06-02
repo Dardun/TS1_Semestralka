@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
+import static com.codeborne.selenide.Selenide.$;
+
 public class ProfilePage {
 
     private WebDriver driver;
@@ -109,6 +111,7 @@ public class ProfilePage {
         ordersButton.click();
     }
     public HomePage logOut(){
+        logoutButton = $("a[href='/logout']");
         logoutButton.click();
 
         return new HomePage(driver);

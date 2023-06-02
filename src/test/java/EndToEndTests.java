@@ -9,6 +9,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pages.*;
 
+import java.time.Duration;
+
 public class EndToEndTests {
 
     private WebDriver driver;
