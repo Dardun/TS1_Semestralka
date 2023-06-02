@@ -135,4 +135,21 @@ public class EndToEndTests {
         ProfilePage profilePage = utilTestClass.clickProfile(driver);
 
     }
+
+
+    @Test
+    public void accountOperationsTest(){
+
+    }
+
+    @Test
+    public void somethingTest(){
+
+    }
+
+
+    @Test
+    public void unloggedSomethingTest(){
+
+    }
 }
