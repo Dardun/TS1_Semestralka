@@ -1,9 +1,6 @@
 import com.codeborne.selenide.WebDriverRunner;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -94,16 +91,10 @@ public class EndToEndTests {
         HomePage homePage = new HomePage(driver);
 
         utilTestClass.acceptCookies();
-
-
         utilTestClass.clickLoginOption(driver);
-
 
         //testing wrong login information
         simpleTests.fillOutWrongLoginInfo(driver);
-
-
-
 
         simpleTests.searchTest("boty", driver);
 
@@ -113,21 +104,15 @@ public class EndToEndTests {
 
         ProductPage productPage = new ProductPage(driver);
 
-        //error
         productPage.addProductToFavorites();
 
-
         FavoriteProductsPage favoriteProductsPage= utilTestClass.clickFavoritesOption(driver);
-
-
 
         if(!favoriteProductsPage.areFavoritesEmpty()) {
             favoriteProductsPage.clickProductInFavorites(0);
         }
 
-
         driver.manage().deleteAllCookies();
-
 
         favoriteProductsPage = new FavoriteProductsPage(driver);
 
@@ -140,8 +125,95 @@ public class EndToEndTests {
 
 
     @Test
-    public void accountOperationsTest(){
+    public void accountOperationsTest() throws InterruptedException {
 
+        SimpleTests simpleTests = new SimpleTests();
+
+        HomePage homePage = new HomePage(driver);
+
+        ProfilePage profilePage = utilTestClass.clickProfile(driver);
+
+
+        String newCity = "Velke prilepy";
+        String newEmail = "oneslavboi@seznam.cz";
+        String newPassword = "Mamradtesting12345!";
+        String newStreetandHouseNum = "Sukova 413";
+        String newZIP = "25264";
+
+        profilePage.changeCity(newCity);
+        profilePage.changeEmail(newEmail);
+        profilePage.changePassword(newPassword);
+        profilePage.changeStreetAndHouseNum(newStreetandHouseNum);
+        profilePage.changeZIP(newZIP);
+        profilePage.clickNewsletterCB();
+
+
+
+
+        profilePage.goToCreditsTab();
+
+        profilePage.goToOrdersTab();
+
+        profilePage.goToProfilePhotosTab();
+
+        profilePage.goToProfileTab();
+
+
+        driver.manage().deleteAllCookies();
+
+        driver.get("https://www.metalshop.cz/");
+
+        utilTestClass.acceptCookies();
+
+        LoginPage loginPage = utilTestClass.clickLoginOption(driver);
+
+
+        loginPage.inputTextIntoNameEmailField(newEmail);
+        loginPage.inputTextIntoPWField(newPassword);
+        loginPage.submitLoginInfo();
+
+        utilTestClass.clickProfile(driver);
+
+
+
+
+        //        profilePage
+
+//        ASSERT THAT THE NEW STUFFS ARE THERE
+
+
+        Assertions.assertEquals(newCity,profilePage.getCityField().getText());
+
+        Assertions.assertEquals(newZIP,profilePage.getZipField().getText());
+
+        Assertions.assertEquals(newEmail,profilePage.getEmailField().getText());
+
+        Assertions.assertEquals(newStreetandHouseNum,profilePage.getStreetField().getText());
+
+
+
+
+        profilePage = utilTestClass.clickProfile(driver);
+
+
+
+
+
+        newCity = "Adamov";
+        newEmail = "strobad1@fel.cvut.cz";
+//        newPassword = "Mamradtesting12345!";
+        newStreetandHouseNum = "Vresova 222";
+        newZIP = "37371";
+
+        profilePage.changeCity(newCity);
+        profilePage.changeEmail(newEmail);
+        profilePage.changePassword(newPassword);
+        profilePage.changeStreetAndHouseNum(newStreetandHouseNum);
+        profilePage.changeZIP(newZIP);
+        profilePage.clickNewsletterCB();
+
+
+        //Change it back to what it was - for legal purposes? can
     }
 
     @Test

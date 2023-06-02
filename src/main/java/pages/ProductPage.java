@@ -48,20 +48,9 @@ public class ProductPage {
 
 
         addToCartButton = $("#buy");
-
-
-
         soldOutContainer = $(".sold_out_detail");
-
-
-
         reviewButtonAnchor = $("#li-tab8 > a");
-
-
         addReviewButton = $("#product_rating_button");
-
-
-
         saveProductTofavoritesButton = $("#product-heart");
 
     }
