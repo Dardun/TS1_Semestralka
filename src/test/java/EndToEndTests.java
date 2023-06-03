@@ -192,9 +192,7 @@ public class EndToEndTests {
         loginPage = utilTestClass.clickLoginOption(driver);
 
 
-//        loginPage.inputTextIntoNameEmailField(newEmail);
-//        loginPage.inputTextIntoPWField(newPassword);
-//        loginPage.submitLoginInfo();
+
 
         loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
         loginPage.inputTextIntoPWField(newPassword);
@@ -308,26 +306,75 @@ public class EndToEndTests {
         SimpleTests simpleTests = new SimpleTests();
         HomePage homePage = new HomePage(driver);
 
-
-
         utilTestClass.acceptCookies();
         utilTestClass.search(keyword);
+
     }
 
+
+    @DataProvider(name = "firmData")
+    public Object[][] readFirmDataCSV() throws IOException {
+        // Get the class loader of this class
+        ClassLoader classLoader = this.getClass().getClassLoader();
+
+        // Get the input stream of the resource
+        InputStream inputStream = classLoader.getResourceAsStream("testingFiles/firmData.csv");
+
+        // Check if the resource exists
+        if (inputStream == null) {
+            throw new FileNotFoundException("File not found: testingFiles/firmData.csv");
+        }
+
+        // Use a buffered reader to read the input stream
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
+        // Create a list to store the data
+        List<Object[]> data = new ArrayList<>();
+
+        // Read each line of the file and add it to the list as an object array
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            // Split the line by comma and trim any whitespace
+            String[] cells = line.split(",");
+            for (int i = 0; i < cells.length; i++) {
+                cells[i] = cells[i].trim();
+            }
+            // Add the cells as an object array to the list
+            data.add(cells);
+        }
+
+        // Close the buffered reader and the input stream
+        bufferedReader.close();
+        inputStream.close();
+
+        // Convert the list to a 2D array and return it
+        return data.toArray(new Object[0][]);
+    }
 
 
 
     ///upravit, prodlouzit
     @Test(dataProvider = "firmData")
-    public void firmDataProviderTest(String keyword) throws InterruptedException {
+    public void firmDataProviderTest(String name, String street, String ico, String city, String dic, String zip) throws InterruptedException {
 
         SimpleTests simpleTests = new SimpleTests();
         HomePage homePage = new HomePage(driver);
 
-
-
         utilTestClass.acceptCookies();
-        utilTestClass.search(keyword);
+
+        LoginPage loginPage = utilTestClass.clickLoginOption(driver);
+
+
+        loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
+        loginPage.inputTextIntoPWField("Mamradtesting12345!");
+        loginPage.submitLoginInfo();
+
+
+
+        ProfilePage profilePage = utilTestClass.clickProfile(driver);
+
+        profilePage.fillOutFirmAndSubmit(name,street,ico,city,dic,zip);
+
     }
 
 

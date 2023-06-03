@@ -227,11 +227,22 @@ public class ProfilePage {
     public void fillOutFirmAndSubmit(String name, String street, String ico, String city,
                                      String dic, String zip){
 
+        firmName.clear();
         firmName.sendKeys(name);
+
+        firmStreet.clear();
         firmStreet.sendKeys(street);
+
+        firmICO.clear();
         firmICO.sendKeys(ico);
+
+        firmCity.clear();
         firmCity.sendKeys(city);
+
+        firmDIC.clear();
         firmDIC.sendKeys(dic);
+
+        firmZIP.clear();
         firmZIP.sendKeys(zip);
 
 
