@@ -1,18 +1,15 @@
 import com.codeborne.selenide.WebDriverRunner;
 import io.github.bonigarcia.wdm.WebDriverManager;
 //import org.junit.jupiter.api.*;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
-import org.testng.junit.*;
 import pages.*;
 
 import java.io.*;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -250,17 +247,17 @@ public class EndToEndTests {
     }
 
 
-    @DataProvider(name = "searchData")
+    @DataProvider(name = "dataProviderSearchTest")
     public Object[][] readCSV() throws IOException {
         // Get the class loader of this class
         ClassLoader classLoader = this.getClass().getClassLoader();
 
         // Get the input stream of the resource
-        InputStream inputStream = classLoader.getResourceAsStream("testingFiles/data.csv");
+        InputStream inputStream = classLoader.getResourceAsStream("testingFiles/searchData.csv");
 
         // Check if the resource exists
         if (inputStream == null) {
-            throw new FileNotFoundException("File not found: testingFiles/data.csv");
+            throw new FileNotFoundException("File not found: testingFiles/searchData.csv");
         }
 
         // Use a buffered reader to read the input stream
@@ -292,18 +289,48 @@ public class EndToEndTests {
 
 
     @Test(dataProvider = "searchData")
-    public void dataProviderTest2(String keyword) throws InterruptedException {
-        // Search for the keyword using Google
-        SimpleTests simpleTests = new SimpleTests();
+    public void dataProviderSearchTest(String keyword) throws InterruptedException {
 
+        SimpleTests simpleTests = new SimpleTests();
         HomePage homePage = new HomePage(driver);
 
 
 
         utilTestClass.acceptCookies();
         utilTestClass.search(keyword);
-
-
     }
+
+
+    ///upravit, prodlouzit
+    @Test(dataProvider = "searchData2")
+    public void dataProviderSearchTest2(String keyword) throws InterruptedException {
+
+        SimpleTests simpleTests = new SimpleTests();
+        HomePage homePage = new HomePage(driver);
+
+
+
+        utilTestClass.acceptCookies();
+        utilTestClass.search(keyword);
+    }
+
+
+
+
+    ///upravit, prodlouzit
+    @Test(dataProvider = "firmData")
+    public void firmDataProviderTest(String keyword) throws InterruptedException {
+
+        SimpleTests simpleTests = new SimpleTests();
+        HomePage homePage = new HomePage(driver);
+
+
+
+        utilTestClass.acceptCookies();
+        utilTestClass.search(keyword);
+    }
+
+
+
 
 }
