@@ -14,8 +14,6 @@ G.idea/sonarlint/issuestore/3/0/30205a209c6ce77c4cfc19a09e6f57c588b7fb88,8\3\83
 Q.idea/sonarlint/securityhotspotstore/e/d/ed67eb178d523a4b3f117dcbe0eda5196367ceec,9\a\9a43762646d6c9d33ccdc2a92292c8078d1078f0
 Å
 Q.idea/sonarlint/securityhotspotstore/3/0/30205a209c6ce77c4cfc19a09e6f57c588b7fb88,6\7\67eaf978e530588b1f14f51aeca296c2b659e272
-7
-pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 R
 "src/main/java/pages/BandsPage.java,8\a\8a430d957e9f97e3535bbd59f3a5cc8c68c821d8
 Y
