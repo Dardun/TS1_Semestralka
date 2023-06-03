@@ -5,10 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.FavoriteProductsPage;
-import pages.LoginPage;
-import pages.ProfilePage;
-import pages.ShoppingCartPage;
+import pages.*;
 
 import java.net.URISyntaxException;
 import java.time.Duration;
@@ -22,9 +19,11 @@ public class UtilTestClass {
 
 
     @Test
-    public void search(String searchString){
+    public SearchResultPage search(String searchString, WebDriver driver){
         $ (By.cssSelector("#fulltextvalue")).sendKeys(searchString);
         $ (By.cssSelector("#search_send")).click();
+
+        return new SearchResultPage(driver);
     }
 
 

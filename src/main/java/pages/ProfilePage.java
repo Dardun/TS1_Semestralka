@@ -245,6 +245,8 @@ public class ProfilePage {
         firmZIP.clear();
         firmZIP.sendKeys(zip);
 
+        firmDIC.click();
+
 
         submitButton.click();
     }
