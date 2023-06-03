@@ -9,10 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.HomePage;
-import pages.LoginPage;
-import pages.ProductPage;
-import pages.RegistrationPage;
+import pages.*;
 
 import java.time.Duration;
 
@@ -249,6 +246,23 @@ public class SimpleTests {
         productPage.selectNumberOfStars(5);
         productPage.fillInReviewForm("Franta Metal", "testingseleniumcvut@protonmail.com", "Veľmi spokojný s produktom.");
 //        driver.findElement(By.cssSelector("#product_rating_form > input.submit.next")).click();
+
+    }
+
+    @Test
+    public void checkoutTest() throws InterruptedException {
+        LoginPage loginPage = new LoginPage(driver);
+        utilTestClass.acceptCookies();
+        loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
+        loginPage.inputTextIntoPWField("protondeeznuts123");
+        loginPage.submitLoginInfo();
+        ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver);
+//        utilTestClass.acceptCookies();
+        DeliveryPage deliveryPage = shoppingCartPage.clickContinueButton();
+        deliveryPage.clickDeliveryOption(9);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        deliveryPage.clickContinueButton();
+        Assertions.assertEquals("https://www.metalshop.cz/ncart/data/",driver.getCurrentUrl());
 
     }
 
