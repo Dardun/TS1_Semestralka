@@ -295,7 +295,7 @@ public class EndToEndTests {
 
 
         utilTestClass.acceptCookies();
-        utilTestClass.search(keyword);
+        utilTestClass.search(keyword,driver);
     }
 
 
@@ -307,7 +307,7 @@ public class EndToEndTests {
         HomePage homePage = new HomePage(driver);
 
         utilTestClass.acceptCookies();
-        utilTestClass.search(keyword);
+        utilTestClass.search(keyword,driver);
 
     }
 
@@ -369,11 +369,14 @@ public class EndToEndTests {
         loginPage.inputTextIntoPWField("Mamradtesting12345!");
         loginPage.submitLoginInfo();
 
-
-
         ProfilePage profilePage = utilTestClass.clickProfile(driver);
 
         profilePage.fillOutFirmAndSubmit(name,street,ico,city,dic,zip);
+
+
+        SearchResultPage searchResultPage = utilTestClass.search("Megadeth",driver);
+
+
 
     }
 
