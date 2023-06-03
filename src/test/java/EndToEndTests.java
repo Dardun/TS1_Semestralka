@@ -1,8 +1,10 @@
 import com.codeborne.selenide.WebDriverRunner;
 import io.github.bonigarcia.wdm.WebDriverManager;
 //import org.junit.jupiter.api.*;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 import pages.*;
@@ -239,11 +241,6 @@ public class EndToEndTests {
 
     }
 
-    @Test
-    public void somethingTest() {
-
-    }
-
 
     @DataProvider(name = "dataProviderSearchTest")
     public Object[][] readCSV() throws IOException {
@@ -379,6 +376,60 @@ public class EndToEndTests {
 
 
     }
+
+    @Test(dataProvider = "reviewData")
+    public void addReviewTest(String name, String email, String review) throws InterruptedException {
+        driver.get("https://www.metalshop.cz/p/135033-tricko-unisex-killstar-soul-card-black-ksra007941/");
+        utilTestClass.acceptCookies();
+        ProductPage productPage = new ProductPage(driver)
+                .openReviewOption()
+                .addNewReview();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("#product_rating_form > div.stars"))));
+        productPage.selectNumberOfStars(5);
+        productPage.fillInReviewForm(name, email, review);
+        // ...
+    }
+
+    @DataProvider(name = "reviewData")
+    public Object[][] readReviewDataCSV() throws IOException {
+        // Get the class loader of this class
+        ClassLoader classLoader = this.getClass().getClassLoader();
+
+        // Get the input stream of the resource
+        InputStream inputStream = classLoader.getResourceAsStream("testingFiles/reviewData.csv");
+
+        // Check if the resource exists
+        if (inputStream == null) {
+            throw new FileNotFoundException("File not found: testingFiles/reviewData.csv");
+        }
+
+        // Use a buffered reader to read the input stream
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
+        // Create a list to store the data
+        List<Object[]> data = new ArrayList<>();
+
+        // Read each line of the file and add it to the list as an object array
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            // Split the line by comma and trim any whitespace
+            String[] cells = line.split(",");
+            for (int i = 0; i < cells.length; i++) {
+                cells[i] = cells[i].trim();
+            }
+            // Add the cells as an object array to the list
+            data.add(cells);
+        }
+
+        // Close the buffered reader and the input stream
+        bufferedReader.close();
+        inputStream.close();
+
+        // Convert the list to a 2D array and return it
+        return data.toArray(new Object[0][]);
+    }
+
 
 
 

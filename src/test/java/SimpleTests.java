@@ -104,7 +104,7 @@ public class SimpleTests {
     @Test
     void searchTest(String searchString, WebDriver driver) throws URISyntaxException {
 
-        utilTestClass.search(searchString);
+        utilTestClass.search(searchString, driver);
 
         String currentUrl = driver.getCurrentUrl();
 
