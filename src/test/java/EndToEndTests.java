@@ -1,19 +1,21 @@
 import com.codeborne.selenide.WebDriverRunner;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.*;
+//import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+import org.testng.junit.*;
 import pages.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EndToEndTests {
 
@@ -21,20 +23,20 @@ public class EndToEndTests {
     private WebDriver driver;
     private WebDriverWait webDriverWait;
 
-    @BeforeAll
+    @BeforeSuite
     static void setupAll() {
         WebDriverManager.chromedriver();
 
     }
 
-    @BeforeEach
+    @BeforeMethod
     void setup() {
         driver = new ChromeDriver();
         WebDriverRunner.setWebDriver(driver);
     }
 
 
-    @AfterEach
+    @AfterMethod
     void teardown() {
 //         driver.quit();
     }
@@ -209,13 +211,14 @@ public class EndToEndTests {
 //        ASSERT THAT THE NEW STUFFS ARE THERE
 
 
-        Assertions.assertEquals(newCity, profilePage.getCityField().getAttribute("value"));
 
-        Assertions.assertEquals(newZIP, profilePage.getZipField().getAttribute("value"));
+        assertEquals(newCity, profilePage.getCityField().getAttribute("value"));
 
-        Assertions.assertEquals(newEmail, profilePage.getEmailField().getAttribute("value"));
+        assertEquals(newZIP, profilePage.getZipField().getAttribute("value"));
 
-        Assertions.assertEquals(newStreetandHouseNum, profilePage.getStreetField().getAttribute("value"));
+        assertEquals(newEmail, profilePage.getEmailField().getAttribute("value"));
+
+        assertEquals(newStreetandHouseNum, profilePage.getStreetField().getAttribute("value"));
 
 
         profilePage = utilTestClass.clickProfile(driver);
@@ -249,53 +252,56 @@ public class EndToEndTests {
 
     @DataProvider(name = "searchData")
     public Object[][] readCSV() throws IOException {
-        // Read the CSV file and store the values in a 2D array
-        BufferedReader br = new BufferedReader(new FileReader("testingFiles/data.csv"));
+        // Get the class loader of this class
+        ClassLoader classLoader = this.getClass().getClassLoader();
+
+        // Get the input stream of the resource
+        InputStream inputStream = classLoader.getResourceAsStream("testingFiles/data.csv");
+
+        // Check if the resource exists
+        if (inputStream == null) {
+            throw new FileNotFoundException("File not found: testingFiles/data.csv");
+        }
+
+        // Use a buffered reader to read the input stream
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
+        // Create a list to store the data
+        List<Object[]> data = new ArrayList<>();
+
+        // Read each line of the file and add it to the list as an object array
         String line;
-        int rowCount = 0;
-        int colCount = 0;
-
-        // Get the number of rows and columns
-        while ((line = br.readLine()) != null) {
-            rowCount++;
+        while ((line = bufferedReader.readLine()) != null) {
+            // Split the line by comma and trim any whitespace
             String[] cells = line.split(",");
-            colCount = cells.length;
-        }
-
-        // Create a 2D array with the same size as the CSV file
-        Object[][] data = new Object[rowCount][colCount];
-
-        // Reset the buffered reader
-        br = new BufferedReader(new FileReader("path/to/data.csv"));
-
-        // Fill the 2D array with the values from the CSV file
-        int i = 0;
-        while ((line = br.readLine()) != null) {
-            String[] cells = line.split(",");
-            for (int j = 0; j < colCount; j++) {
-                data[i][j] = cells[j];
+            for (int i = 0; i < cells.length; i++) {
+                cells[i] = cells[i].trim();
             }
-            i++;
+            // Add the cells as an object array to the list
+            data.add(cells);
         }
 
-        // Close the buffered reader
-        br.close();
+        // Close the buffered reader and the input stream
+        bufferedReader.close();
+        inputStream.close();
 
-        // Return the 2D array
-        return data;
-
-
+        // Convert the list to a 2D array and return it
+        return data.toArray(new Object[0][]);
     }
 
 
-    @Test(dataProvider = "searchData")
-    public void dataProviderTest2(String keyword, String expectedTitle) throws InterruptedException {
-        // Search for the keyword using Google
 
-        HomePage homePage= new HomePage(driver);
+    @Test(dataProvider = "searchData")
+    public void dataProviderTest2(String keyword) throws InterruptedException {
+        // Search for the keyword using Google
+        SimpleTests simpleTests = new SimpleTests();
+
+        HomePage homePage = new HomePage(driver);
+
+
 
         utilTestClass.acceptCookies();
-        utilTestClass.search();
+        utilTestClass.search(keyword);
 
 
     }
