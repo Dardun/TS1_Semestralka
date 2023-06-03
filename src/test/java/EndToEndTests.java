@@ -41,6 +41,7 @@ public class EndToEndTests {
     }
 
 
+    //Adam
     @Test
     public void loggedinE2ETest() throws Exception {
         SimpleTests simpleTests = new SimpleTests();
@@ -49,6 +50,9 @@ public class EndToEndTests {
 
         utilTestClass.acceptCookies();
 
+        FavoriteProductsPage favoriteProductsPage= utilTestClass.clickFavoritesOption(driver);
+
+        favoriteProductsPage.removeAllFavorites();
 
         utilTestClass.clickLoginOption(driver);
 
@@ -59,15 +63,13 @@ public class EndToEndTests {
 
         SearchResultPage searchResultPage = new SearchResultPage(driver);
 
-        searchResultPage.findAndClickProduct(0);
+        ProductPage productPage = searchResultPage.findAndClickProduct(0,driver);
 
-        ProductPage productPage = new ProductPage(driver);
 
-        //error
         productPage.addProductToFavorites();
 
 
-        FavoriteProductsPage favoriteProductsPage = utilTestClass.clickFavoritesOption(driver);
+        favoriteProductsPage = utilTestClass.clickFavoritesOption(driver);
 
 
         if (!favoriteProductsPage.areFavoritesEmpty()) {
@@ -79,10 +81,14 @@ public class EndToEndTests {
 
         profilePage.logOut();
 
+
+
+        utilTestClass.clickBottomBarYouTube();
 //        simpleTests.login
     }
 
 
+//Adam TODO
     @Test
     public void loggedOutE2ETest() throws Exception {
 
@@ -101,9 +107,9 @@ public class EndToEndTests {
 
         SearchResultPage searchResultPage = new SearchResultPage(driver);
 
-        searchResultPage.findAndClickProduct(0);
+        ProductPage productPage = searchResultPage.findAndClickProduct(0,driver);
 
-        ProductPage productPage = new ProductPage(driver);
+
 
         productPage.addProductToFavorites();
 
@@ -120,11 +126,13 @@ public class EndToEndTests {
         if (!favoriteProductsPage.areFavoritesEmpty()) {
             throw new Exception("Favorites shouldn't have anythign when cookies are cleared!");
         }
-        ProfilePage profilePage = utilTestClass.clickProfile(driver);
+
+        utilTestClass.clickBottomBarInstagram();
 
     }
 
 
+    //Adam
     @Test
     public void accountOperationsTest() throws InterruptedException {
 
@@ -239,6 +247,9 @@ public class EndToEndTests {
         profilePage.submitForm();
 
 
+
+        utilTestClass.clickBottomBarTikTok();
+
     }
 
 
@@ -283,6 +294,7 @@ public class EndToEndTests {
 
 
 
+
     @Test(dataProvider = "searchData")
     public void dataProviderSearchTest(String keyword) throws InterruptedException {
 
@@ -296,19 +308,21 @@ public class EndToEndTests {
     }
 
 
-    ///upravit, prodlouzit
-    @Test(dataProvider = "searchData2")
-    public void dataProviderSearchTest2(String keyword) throws InterruptedException {
 
-        SimpleTests simpleTests = new SimpleTests();
-        HomePage homePage = new HomePage(driver);
+//    ///upravit, prodlouzit
+//    @Test(dataProvider = "searchData2")
+//    public void dataProviderSearchTest2(String keyword) throws InterruptedException {
+//
+//        SimpleTests simpleTests = new SimpleTests();
+//        HomePage homePage = new HomePage(driver);
+//
+//        utilTestClass.acceptCookies();
+//        utilTestClass.search(keyword,driver);
+//
+//    }
 
-        utilTestClass.acceptCookies();
-        utilTestClass.search(keyword,driver);
 
-    }
-
-
+    //adam
     @DataProvider(name = "firmData")
     public Object[][] readFirmDataCSV() throws IOException {
         // Get the class loader of this class
@@ -350,9 +364,10 @@ public class EndToEndTests {
 
 
 
+    //adam
     ///upravit, prodlouzit
     @Test(dataProvider = "firmData")
-    public void firmDataProviderTest(String name, String street, String ico, String city, String dic, String zip) throws InterruptedException {
+    public void firmDataProviderTest(String name, String street, String ico, String city, String dic, String zip) throws Exception {
 
         SimpleTests simpleTests = new SimpleTests();
         HomePage homePage = new HomePage(driver);
@@ -373,10 +388,17 @@ public class EndToEndTests {
 
         SearchResultPage searchResultPage = utilTestClass.search("Megadeth",driver);
 
+        ProductPage productPage = searchResultPage.findAndClickProduct(2,driver);
+
+        productPage.selectVariationViaIndex(1);
+
+//        productPage.
+
 
 
     }
 
+    //vaness
     @Test(dataProvider = "reviewData")
     public void addReviewTest(String name, String email, String review) throws InterruptedException {
         driver.get("https://www.metalshop.cz/p/135033-tricko-unisex-killstar-soul-card-black-ksra007941/");

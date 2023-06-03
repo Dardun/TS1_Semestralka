@@ -18,7 +18,7 @@ public class SearchResultPage {
     }
 
 
-    public void findAndClickProduct(int index) throws Exception {
+    public ProductPage findAndClickProduct(int index,WebDriver driver) throws Exception {
         List<WebElement> productItems = driver.findElements(By.className("product-item"));
 
         if (index<0){
@@ -36,6 +36,8 @@ public class SearchResultPage {
         WebElement variationIndexElement = productItems.get(index);
 
         variationIndexElement.click();
+
+        return new ProductPage(driver);
     }
 
 

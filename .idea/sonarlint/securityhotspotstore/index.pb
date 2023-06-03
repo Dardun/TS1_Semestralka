@@ -16,9 +16,5 @@ Q.idea/sonarlint/securityhotspotstore/e/d/ed67eb178d523a4b3f117dcbe0eda5196367ce
 Q.idea/sonarlint/securityhotspotstore/3/0/30205a209c6ce77c4cfc19a09e6f57c588b7fb88,6\7\67eaf978e530588b1f14f51aeca296c2b659e272
 R
 "src/main/java/pages/BandsPage.java,8\a\8a430d957e9f97e3535bbd59f3a5cc8c68c821d8
-Y
-)src/main/java/pages/SearchResultPage.java,7\3\73feb22859b3355e849db72a00789e86699cbdcf
 R
 "src/main/java/pages/LoginPage.java,4\b\4bdc7fe650a4170fd3332cdfc4dca51f7507f98b
-]
--src/main/java/pages/FavoriteProductsPage.java,1\f\1f04ccd69f0963ee80541f350b16ff33f42825f5

@@ -65,6 +65,21 @@ public class FavoriteProductsPage {
         elementToFind.click();
     }
 
+    public void removeAllFavorites(){
+
+        List<WebElement> elements = driver.findElements(By.className("plist-remove"));
+
+
+
+
+        for (WebElement element : elements) {
+            element.click();
+            elements = driver.findElements(By.className("plist-remove"));
+
+
+        }
+
+    }
 
 
 }
