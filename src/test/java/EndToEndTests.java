@@ -131,17 +131,33 @@ public class EndToEndTests {
 
         HomePage homePage = new HomePage(driver);
 
+        utilTestClass.acceptCookies();
+
+        LoginPage loginPage = utilTestClass.clickLoginOption(driver);
+
+        loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
+        loginPage.inputTextIntoPWField("Mamradtesting12345!");
+        loginPage.submitLoginInfo();
+
         ProfilePage profilePage = utilTestClass.clickProfile(driver);
 
+        String newName = "Adam";
+        String newSurname = "Strobl";
+        String newCity = "Velke Prilepy";
+        String newPhone = "731881966";
 
-        String newCity = "Velke prilepy";
-        String newEmail = "oneslavboi@seznam.cz";
+        //        Email is NOT editable
+        String newEmail = "testingseleniumcvut@protonmail.com";
         String newPassword = "Mamradtesting12345!";
         String newStreetandHouseNum = "Sukova 413";
         String newZIP = "25264";
 
+
+        profilePage.changeName(newName);
+        profilePage.changeSurname(newSurname);
+        profilePage.changePhone(newPhone);
         profilePage.changeCity(newCity);
-        profilePage.changeEmail(newEmail);
+//        profilePage.changeEmail(newEmail);
         profilePage.changePassword(newPassword);
         profilePage.changeStreetAndHouseNum(newStreetandHouseNum);
         profilePage.changeZIP(newZIP);
@@ -152,11 +168,25 @@ public class EndToEndTests {
 
         profilePage.goToCreditsTab();
 
+        webDriverWait = new WebDriverWait(driver,Duration.ofSeconds(2));
+
         profilePage.goToOrdersTab();
+
+        webDriverWait = new WebDriverWait(driver,Duration.ofSeconds(2));
 
         profilePage.goToProfilePhotosTab();
 
+        webDriverWait = new WebDriverWait(driver,Duration.ofSeconds(2));
+
         profilePage.goToProfileTab();
+
+        webDriverWait = new WebDriverWait(driver,Duration.ofSeconds(2));
+
+
+
+        profilePage.submitForm();
+
+
 
 
         driver.manage().deleteAllCookies();
@@ -165,10 +195,14 @@ public class EndToEndTests {
 
         utilTestClass.acceptCookies();
 
-        LoginPage loginPage = utilTestClass.clickLoginOption(driver);
+        loginPage = utilTestClass.clickLoginOption(driver);
 
 
-        loginPage.inputTextIntoNameEmailField(newEmail);
+//        loginPage.inputTextIntoNameEmailField(newEmail);
+//        loginPage.inputTextIntoPWField(newPassword);
+//        loginPage.submitLoginInfo();
+
+        loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
         loginPage.inputTextIntoPWField(newPassword);
         loginPage.submitLoginInfo();
 
@@ -182,13 +216,13 @@ public class EndToEndTests {
 //        ASSERT THAT THE NEW STUFFS ARE THERE
 
 
-        Assertions.assertEquals(newCity,profilePage.getCityField().getText());
+        Assertions.assertEquals(newCity,profilePage.getCityField().getAttribute("value"));
 
-        Assertions.assertEquals(newZIP,profilePage.getZipField().getText());
+        Assertions.assertEquals(newZIP,profilePage.getZipField().getAttribute("value"));
 
-        Assertions.assertEquals(newEmail,profilePage.getEmailField().getText());
+        Assertions.assertEquals(newEmail,profilePage.getEmailField().getAttribute("value"));
 
-        Assertions.assertEquals(newStreetandHouseNum,profilePage.getStreetField().getText());
+        Assertions.assertEquals(newStreetandHouseNum,profilePage.getStreetField().getAttribute("value"));
 
 
 
@@ -200,20 +234,23 @@ public class EndToEndTests {
 
 
         newCity = "Adamov";
-        newEmail = "strobad1@fel.cvut.cz";
-//        newPassword = "Mamradtesting12345!";
+//        newEmail = "strobad1@fel.cvut.cz";
+
+      //change as needed
+        newPassword = "Mamradtesting12345!";
         newStreetandHouseNum = "Vresova 222";
         newZIP = "37371";
 
         profilePage.changeCity(newCity);
-        profilePage.changeEmail(newEmail);
+//        profilePage.changeEmail(newEmail);
         profilePage.changePassword(newPassword);
         profilePage.changeStreetAndHouseNum(newStreetandHouseNum);
         profilePage.changeZIP(newZIP);
         profilePage.clickNewsletterCB();
 
+        profilePage.submitForm();
 
-        //Change it back to what it was - for legal purposes? can
+
     }
 
     @Test

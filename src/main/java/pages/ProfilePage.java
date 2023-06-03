@@ -1,6 +1,5 @@
 package pages;
 
-import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -134,7 +133,7 @@ public class ProfilePage {
     }
 
     @FindBy(how = How.CSS,using = "input[value='Odešlete informace']")
-    WebElement firmSubmit;
+    WebElement submitButton;
 
 
 
@@ -181,7 +180,10 @@ public class ProfilePage {
         firmZIP = $("#f_zip_code");
         firmICO = $("#f_ico");
         firmCity = $("#f_city");
-        firmSubmit = $("input[value='Odešlete informace']");
+
+
+        submitButton  = $("input[value='Odešlete informace']");
+
         activeTabButton = $("li[class='active'] a span");
         profileInfoButton = $("#page-account > section > div > section > div.panel-heading > ul > li:nth-child(1) > a");
         ordersButton = $("#page-account > section > div > section > div.panel-heading > ul > li:nth-child(2) > a");
@@ -192,6 +194,9 @@ public class ProfilePage {
     }
 
 
+    public void submitForm(){
+        submitButton.click();
+    }
 
     public void goToProfilePhotosTab(){
 
@@ -230,42 +235,49 @@ public class ProfilePage {
         firmZIP.sendKeys(zip);
 
 
-        firmSubmit.click();
+        submitButton.click();
     }
     public void clickNewsletterCB(){
         wantToRecieveNewsletterCB.click();
     }
     public void changeName(String name){
 
+        nameField.clear();
         nameField.sendKeys(name);
     }
     public void changeSurname(String surname){
 
+        surnameField.clear();
         surnameField.sendKeys(surname);
     }
     public void changeEmail(String email){
-
+        emailField.clear();
         emailField.sendKeys(email);
     }
     public void changePassword(String pw){
 
+        passwordField.clear();
         passwordField.sendKeys(pw);
         passwordVerificationField.sendKeys(pw);
     }
     public void changeStreetAndHouseNum(String streetAndHouseNum){
 
+        streetField.clear();
         streetField.sendKeys(streetAndHouseNum);
     }
     public void changeCity(String city){
+        cityField.clear();
         cityField.sendKeys(city);
 
     }
     public void changeZIP(String zip){
 
+        zipField.clear();
         zipField.sendKeys(zip);
     }
     public void changePhone(String phone){
 
+        phoneField.clear();
         phoneField.sendKeys(phone);
     }
 
