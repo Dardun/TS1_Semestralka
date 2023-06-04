@@ -83,7 +83,7 @@ public class UtilTestClass {
 
 
     public ShoppingCartPage clickShoppingCartOption(WebDriver driver) {
-        WebElement cartButtonAnchor = Selenide.$("#header > div.container.top-header-margin > div.col-xs-4.col-2xs-4.small-devices-displayed > div > a:nth-child(4)");
+        WebElement cartButtonAnchor = Selenide.$("#head_nav > ul > li:nth-child(4) > a > div.name");
 
         cartButtonAnchor.click();
         return new ShoppingCartPage(driver);

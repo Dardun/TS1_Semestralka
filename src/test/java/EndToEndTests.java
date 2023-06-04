@@ -1,6 +1,7 @@
 import com.codeborne.selenide.WebDriverRunner;
 import io.github.bonigarcia.wdm.WebDriverManager;
 //import org.junit.jupiter.api.*;
+import org.apache.commons.logging.Log;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -317,9 +318,9 @@ public class EndToEndTests {
 
 
 
-    //Adam test 4 TODO
-    @Test(dataProvider = "searchData")
-    public void dataProviderSearchTest(String keyword) throws InterruptedException {
+    //Adam test 4 done
+    @Test(dataProvider = "dataProviderSearchTest")
+    public void dataProviderSearchTest(String keyword) throws Exception {
 
         SimpleTests simpleTests = new SimpleTests();
         HomePage homePage = new HomePage(driver);
@@ -327,7 +328,58 @@ public class EndToEndTests {
 
 
         utilTestClass.acceptCookies();
-        utilTestClass.search(keyword,driver);
+        SearchResultPage searchResultPage = utilTestClass.search(keyword,driver);
+
+        ProductPage productPage = searchResultPage.findAndClickProduct(0,driver);
+
+        productPage.openPhotosOption();
+        productPage.openDescriptionOption();
+        productPage.addProductToFavorites();
+
+        productPage.addProductToCart();
+//        productPage.clickCloseAddedToCartPopup();
+
+        LoginPage loginPage =utilTestClass.clickLoginOption(driver);
+
+
+        loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
+        loginPage.inputTextIntoPWField("Mamradtesting12345!");
+
+        loginPage.submitLoginInfo();
+
+        homePage.getWomenDropdown().click();
+
+        utilTestClass.goToHomePage(driver);
+
+        ShoppingCartPage shoppingCartPage = utilTestClass.clickShoppingCartOption(driver);
+
+        DeliveryPage deliveryPage = shoppingCartPage.clickContinueButton();
+
+        deliveryPage.clickContinueButton();
+
+
+        shoppingCartPage = utilTestClass.clickShoppingCartOption(driver);
+
+
+        shoppingCartPage.deleteAllFromShoppingCart();
+
+        utilTestClass.goToHomePage(driver);
+
+        //should fail
+        utilTestClass.subscribeToNewsletter(driver,"falesnyemail123");
+
+        //should go through
+        utilTestClass.subscribeToNewsletter(driver,"cvutseleniumtesting@protonmail.com");
+
+
+//        // TODO remove if needed ?
+//        utilTestClass.search("@!$%)$$",driver);
+
+
+        utilTestClass.clickBottomBarCustomerPhotos();
+
+        utilTestClass.clickBottomBarTikTok();
+
     }
 
 
@@ -415,7 +467,43 @@ public class EndToEndTests {
 
         productPage.selectVariationViaIndex(1);
 
-//        productPage.
+
+
+        profilePage = utilTestClass.clickProfile(driver);
+
+        profilePage.goToOrdersTab();
+        profilePage.goToProfilePhotosTab();
+        profilePage.goToCreditsTab();
+        profilePage.goToProfileTab();
+        profilePage.logOut();
+
+        homePage.getAccessoriesDropdown().click();
+        utilTestClass.clickShippingInfoButton();
+        utilTestClass.goToHomePage(driver);
+
+        utilTestClass.clickFavoritesOption(driver);
+
+        utilTestClass.search("jsemOdhlasen123",driver);
+        searchResultPage = utilTestClass.search("Gutalax",driver);
+        searchResultPage = utilTestClass.search("avenged sevenfold",driver);
+
+        searchResultPage.goToPageNumber(3);
+
+        productPage = searchResultPage.findAndClickProduct(1,driver);
+
+        productPage.openDiscussionOption();
+        productPage.openReviewOption();
+        productPage.addNewReview();
+
+        productPage.fillInReviewForm("","","");
+
+
+        productPage.fillInReviewForm("aaa235@","22","nelibii sem itpo@!#!%@");
+
+        productPage.selectNumberOfStars(1);
+        productPage.fillInReviewForm("adamek stroblicek","adamstrobk@gmail.com","asi ok");
+
+
 
 
 

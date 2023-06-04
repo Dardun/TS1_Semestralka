@@ -88,9 +88,6 @@ WebElement reviewButtonAnchor;
         variationIndexElement.click();
 
 
-
-        addToCartButton.click();
-
     }
     public void addProductToCart() {
 
@@ -124,6 +121,10 @@ WebElement reviewButtonAnchor;
         $("#rating_star_" + String.valueOf(number)).click();
 
         return this;
+    }
+
+    public void clickCloseAddedToCartPopup(){
+        $("#bought-too-modal > div > div > div > button").click();
     }
 
     public ProductPage fillInReviewForm(String name, String email, String text) {
