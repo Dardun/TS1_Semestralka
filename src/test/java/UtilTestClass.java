@@ -131,4 +131,14 @@ public class UtilTestClass {
 
 
 
+
+public HomePage goToHomePage(WebDriver driver){
+        WebElement homePageImage = $("a[href='https://www.metalshop.cz']");
+
+        homePageImage.click();
+        return new HomePage(driver);
+}
+
+
+
 }

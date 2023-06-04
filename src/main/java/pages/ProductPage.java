@@ -32,7 +32,10 @@ public class ProductPage {
 
 
 //    @FindBy(how = How.CSS,using = "#li-tab8 > a")
-    WebElement reviewButtonAnchor;
+WebElement reviewButtonAnchor;
+    WebElement photosButtonAnchor;
+    WebElement descriptionButtonAnchor;
+    WebElement discussionButtonAnchor;
 
 //    @FindBy(how = How.CSS,using ="#product_rating_button")
     WebElement addReviewButton;
@@ -52,6 +55,10 @@ public class ProductPage {
         reviewButtonAnchor = $("#li-tab8 > a");
         addReviewButton = $("#product_rating_button");
         saveProductTofavoritesButton = $("#product-heart");
+
+        descriptionButtonAnchor=$("#li-tab1 > a");
+        photosButtonAnchor=$("#li-tab2 > a");;
+        discussionButtonAnchor=$("#li-tab3 > a");;
 
     }
 
@@ -91,6 +98,18 @@ public class ProductPage {
 
     }
 
+    public ProductPage openDescriptionOption() {
+        descriptionButtonAnchor.click();
+        return this;
+    }
+    public ProductPage openPhotosOption() {
+        photosButtonAnchor.click();
+        return this;
+    }
+    public ProductPage openDiscussionOption() {
+        discussionButtonAnchor.click();
+        return this;
+    }
     public ProductPage openReviewOption() {
         reviewButtonAnchor.click();
         return this;

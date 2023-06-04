@@ -17,6 +17,8 @@ import static com.codeborne.selenide.Selenide.$;
 public class HomePage {
     private WebDriver driver;
 
+
+    //TODO Presunout do util Classu? Vanes? nevim ktere tyto presne jsou
     @FindBy(how = How.CSS, using = "#mySidenav > div > ul > li.dropdown.bands > a")
     private WebElement bandsButtonAnchor;
 

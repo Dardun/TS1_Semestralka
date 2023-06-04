@@ -95,9 +95,10 @@ public class EndToEndTests {
 
         SimpleTests simpleTests = new SimpleTests();
 
-        HomePage homePage = new HomePage(driver);
+        HomePage homePage;
 
         utilTestClass.acceptCookies();
+
         utilTestClass.clickLoginOption(driver);
 
         //testing wrong login information
@@ -126,6 +127,29 @@ public class EndToEndTests {
         if (!favoriteProductsPage.areFavoritesEmpty()) {
             throw new Exception("Favorites shouldn't have anythign when cookies are cleared!");
         }
+
+
+        homePage = utilTestClass.goToHomePage(driver);
+
+        utilTestClass.acceptCookies();
+
+        BandsPage bandsPage = homePage.clickBandsOption();
+
+
+        searchResultPage = bandsPage.findAndClickBand(driver,"Alter Bridge");
+
+        productPage = searchResultPage.findAndClickProduct(0,driver);
+
+        productPage.openReviewOption();
+        productPage.addNewReview();
+
+        productPage.openPhotosOption();
+        productPage.openDescriptionOption();
+
+
+        productPage.fillInReviewForm("Adam Strobl", "strobad1@fel.cvut.cz","fajnove");
+
+        productPage.selectNumberOfStars(4);
 
         utilTestClass.clickBottomBarInstagram();
 
