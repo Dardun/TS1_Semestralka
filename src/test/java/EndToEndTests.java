@@ -41,7 +41,7 @@ public class EndToEndTests {
     }
 
 
-    //Adam
+    //Adam test 3
     @Test
     public void loggedinE2ETest() throws Exception {
         SimpleTests simpleTests = new SimpleTests();
@@ -88,14 +88,14 @@ public class EndToEndTests {
     }
 
 
-//Adam TODO
+//Adam test 2
     @Test
     public void loggedOutE2ETest() throws Exception {
 
+        HomePage homePage = new HomePage(driver);
 
         SimpleTests simpleTests = new SimpleTests();
 
-        HomePage homePage;
 
         utilTestClass.acceptCookies();
 
@@ -143,20 +143,18 @@ public class EndToEndTests {
         productPage.openReviewOption();
         productPage.addNewReview();
 
-        productPage.openPhotosOption();
-        productPage.openDescriptionOption();
-
-
+        productPage.selectNumberOfStars(4);
         productPage.fillInReviewForm("Adam Strobl", "strobad1@fel.cvut.cz","fajnove");
 
-        productPage.selectNumberOfStars(4);
+        utilTestClass.closeSaleAdvert(driver);
+
 
         utilTestClass.clickBottomBarInstagram();
 
     }
 
 
-    //Adam
+    //Adam test 1
     @Test
     public void accountOperationsTest() throws InterruptedException {
 
@@ -319,6 +317,7 @@ public class EndToEndTests {
 
 
 
+    //Adam test 4 TODO
     @Test(dataProvider = "searchData")
     public void dataProviderSearchTest(String keyword) throws InterruptedException {
 
@@ -388,7 +387,7 @@ public class EndToEndTests {
 
 
 
-    //adam
+    //adam test 5 TODO
     ///upravit, prodlouzit
     @Test(dataProvider = "firmData")
     public void firmDataProviderTest(String name, String street, String ico, String city, String dic, String zip) throws Exception {

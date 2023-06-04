@@ -34,7 +34,7 @@ public class ProductPage {
 //    @FindBy(how = How.CSS,using = "#li-tab8 > a")
 WebElement reviewButtonAnchor;
     WebElement photosButtonAnchor;
-    WebElement descriptionButtonAnchor;
+    WebElement  descriptionButtonAnchor;
     WebElement discussionButtonAnchor;
 
 //    @FindBy(how = How.CSS,using ="#product_rating_button")
@@ -121,15 +121,15 @@ WebElement reviewButtonAnchor;
     }
 
     public  ProductPage selectNumberOfStars(int number) {
-        driver.findElement(By.cssSelector("#rating_star_" + String.valueOf(number))).click();
+        $("#rating_star_" + String.valueOf(number)).click();
 
         return this;
     }
 
     public ProductPage fillInReviewForm(String name, String email, String text) {
-        driver.findElement(By.cssSelector("#rating_name")).sendKeys(name);
-        driver.findElement(By.cssSelector("#rating_email")).sendKeys(email);
-        driver.findElement(By.cssSelector("#rating_text")).sendKeys(text);
+        $("#rating_name").sendKeys(name);
+        $("#rating_email").sendKeys(email);
+        $("#rating_text").sendKeys(text);
         return this;
     }
 
