@@ -2,6 +2,7 @@ import com.codeborne.selenide.WebDriverRunner;
 import io.github.bonigarcia.wdm.WebDriverManager;
 //import org.junit.jupiter.api.*;
 import org.apache.commons.logging.Log;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -560,8 +561,43 @@ public class EndToEndTests {
         return data.toArray(new Object[0][]);
     }
 
+    //vaness
+    @Test
+    public void addProductToCartTest() throws Exception {
+        HomePage homePage = new HomePage(driver);
+        utilTestClass.acceptCookies();
+        HomePage homePage1 = homePage.chooseCategory(homePage.getWomenDropdown()); // clicked on woman category
+        utilTestClass.closeSaleAdvert(driver);
 
+        // choosing product and its size
+        driver.findElement(By.cssSelector("#page-section > section > div > section > div.products_header.col-sm-12 > div > div.mp_category.vypis-filtre > div.row.row-products > div:nth-child(4) > div > a > picture:nth-child(5) > img")).click();
+        ProductPage productPage = new ProductPage(driver);
+        productPage.selectVariationViaIndex(0);
 
+        // waiting till the color of the size box turns orange, therefore is selected
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until((WebDriver driver) -> {
+            String border = driver.findElement(By.cssSelector("#variation_select_135033_1_2 > div")).getCssValue("border");
+            return border.equals("1px solid rgb(236, 127, 0)");
+        });
+
+        // clicking on the buy button
+        productPage.addProductToCart();
+
+        //waiting for the website to process the addition
+        WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait2.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#bought-too-modal > div > div")));
+
+        // checking for the number above cart icon
+        Assertions.assertEquals("1", driver.findElement(By.cssSelector("#small_cart_amount")).getText());
+
+        // opening shoping cart
+        ShoppingCartPage shoppingCartPage = productPage.openCartFromPopup();
+
+        // deleting the products
+        shoppingCartPage.deleteAllFromShoppingCart();
+
+    }
 
 
 }

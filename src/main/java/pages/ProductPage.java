@@ -134,4 +134,10 @@ WebElement reviewButtonAnchor;
         return this;
     }
 
+    public ShoppingCartPage openCartFromPopup() {
+        $("#bought-too-modal > div > div > div > div.modal-buttons > a.btn-submit").click();
+        return new ShoppingCartPage(driver);
+    }
+
+
 }
