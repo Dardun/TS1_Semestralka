@@ -134,11 +134,11 @@ public class SimpleTests {
         LoginPage loginPage = new LoginPage(driver);
         utilTestClass.acceptCookies();
         loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
-        loginPage.inputTextIntoPWField("protondeeznuts123");
+        loginPage.inputTextIntoPWField("Mamradtesting12345!");
         loginPage.submitLoginInfo(); // firstly, logging into the account
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("#alert_success > strong")))); // waiting for elements to load
+        wait.until(ExpectedConditions.visibilityOf($("#alert_success > strong"))); // waiting for elements to load
 
         WebElement accountButton = driver.findElement(By.cssSelector("#head_nav > ul > li:nth-child(3) > a > div.name"));
         accountButton.click(); // clicking on the user account
@@ -168,23 +168,25 @@ public class SimpleTests {
         driver.manage().deleteAllCookies();
 
 
-        driver.get("https://www.metalshop.cz");
         // Delete existing cookies
 
+        Assertions.assertTrue(driver.manage().getCookies().isEmpty());
         // Refresh the page
         driver.navigate().refresh();
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("#header"))));
 
+        Assertions.assertTrue(driver.manage().getCookies().isEmpty());
         // Verify that cookies have been deleted
         Set<Cookie> cookies2 = driver.manage().getCookies();
         System.out.println(cookies2);
         Assertions.assertNotEquals(cookies1, cookies2);
         // This still doesn't work but probably should
-//        Set<Cookie> cookies = driver.manage().getCookies();
-//        System.out.println(cookies);
-//        Assertions.assertTrue(cookies.isEmpty());
+
+        Set<Cookie> cookies = driver.manage().getCookies();
+
+
+        System.out.println(cookies);
+        Assertions.assertTrue(cookies.isEmpty());
 
         // Accept new cookies (e.g., click "Accept" button)
         utilTestClass.acceptCookies();
@@ -210,20 +212,37 @@ public class SimpleTests {
     }
 
     @Test
-    public void checkoutTest() throws InterruptedException {
+    public void checkoutTest() throws Exception {
         LoginPage loginPage = new LoginPage(driver);
         utilTestClass.acceptCookies();
         loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
-        loginPage.inputTextIntoPWField("protondeeznuts123");
+        loginPage.inputTextIntoPWField("Mamradtesting12345!");
         loginPage.submitLoginInfo();
-        ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver);
-//        utilTestClass.acceptCookies();
+
+
+        SearchResultPage resultPage = utilTestClass.search("Shadow",driver);
+
+        ProductPage productPage = resultPage.findAndClickProduct(4,driver);
+
+        productPage.selectVariationViaIndex(0);
+        productPage.selectVariationViaIndex(1);
+        productPage.selectVariationViaIndex(0);
+        productPage.addProductToCart();
+
+        productPage.clickCloseAddedToCartPopup();
+
+        ShoppingCartPage shoppingCartPage = utilTestClass.clickShoppingCartOption(driver);
+
         DeliveryPage deliveryPage = shoppingCartPage.clickContinueButton();
+
+
         deliveryPage.clickDeliveryOption(9);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         deliveryPage.clickContinueButton();
         Assertions.assertEquals("https://www.metalshop.cz/ncart/data/",driver.getCurrentUrl());
 
+        shoppingCartPage = new ShoppingCartPage(driver);
+        shoppingCartPage.deleteAllFromShoppingCart();
     }
 
     @Test
