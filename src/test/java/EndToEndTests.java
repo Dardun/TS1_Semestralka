@@ -372,9 +372,6 @@ public class EndToEndTests {
         utilTestClass.subscribeToNewsletter(driver,"cvutseleniumtesting@protonmail.com");
 
 
-//        // TODO remove if needed ?
-//        utilTestClass.search("@!$%)$$",driver);
-
 
         utilTestClass.clickBottomBarCustomerPhotos();
 

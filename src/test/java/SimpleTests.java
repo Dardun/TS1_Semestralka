@@ -315,8 +315,8 @@ public class SimpleTests {
 
         //large numbers
 
-        searchResultPage.setPriceRangeMin(-999999999);
-        searchResultPage.setPriceRangeMax(+999999999);
+        searchResultPage.setPriceRangeMin(999999998);
+        searchResultPage.setPriceRangeMax(999999999);
 
         //+ and -
         searchResultPage.setPriceRangeMin(-999999999);
