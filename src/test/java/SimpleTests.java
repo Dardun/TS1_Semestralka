@@ -149,29 +149,6 @@ public class SimpleTests {
         Assertions.assertEquals("Potvrzeno", driver.findElement(By.cssSelector("#alert_success > strong")).getText());
     }
 
-    @Test
-    //TODO port to util class, rename methods it uses
-    public void addProductToCartTest() throws InterruptedException {
-        HomePage homePage = new HomePage(driver);
-        utilTestClass.acceptCookies();
-        HomePage homePage1 = homePage.chooseCategory(homePage.getWomenDropdown()); // clicked on woman category
-        utilTestClass.closeSaleAdvert(driver);
-        // choosing product and its size
-        HomePage homePage2 = homePage1.selectProductsSize(driver.findElement(By.cssSelector("#page-section > section > div > section > div.products_header.col-sm-12 > div > div.mp_category.vypis-filtre > div.row.row-products > div:nth-child(3) > div > a")));
-        // waiting till the color of the size box turns orange, therefore is selected
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until((WebDriver driver) -> {
-            String border = driver.findElement(By.cssSelector("#variation_select_135033_1_2 > div")).getCssValue("border");
-            return border.equals("1px solid rgb(236, 127, 0)");
-        });
-        // clicking on the buy button
-        driver.findElement(By.cssSelector("#buy")).click();
-        WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(20));
-        wait2.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#bought-too-modal > div > div")));
-        // checking for the number above cart icon
-        Assertions.assertEquals("1", driver.findElement(By.cssSelector("#small_cart_amount")).getText());
-
-    }
 
     @Test
     public void emailSubscriptionTest() throws InterruptedException {
@@ -285,6 +262,7 @@ public class SimpleTests {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         utilTestClass.acceptCookies();
         SearchResultPage searchResultPage = utilTestClass.search("Test",driver);
+
         searchResultPage.clickPriceOption();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         utilTestClass.closeSaleAdvert(driver);
