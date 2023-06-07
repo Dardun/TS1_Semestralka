@@ -71,7 +71,7 @@ public class SimpleTests {
 
 
         loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
-        loginPage.inputTextIntoPWField("protondeeznuts123");
+        loginPage.inputTextIntoPWField("Mamradtesting12345!");
         loginPage.submitLoginInfo();
 
 
@@ -276,14 +276,18 @@ public class SimpleTests {
     @Test
     public void inputTestPriceRange() throws InterruptedException {
         HomePage homePage = new HomePage(driver);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         utilTestClass.acceptCookies();
         SearchResultPage searchResultPage = utilTestClass.search("Test",driver);
 
         searchResultPage.clickPriceOption();
-
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        utilTestClass.closeSaleAdvert(driver);
+        js.executeScript("window.scrollBy(0, -250)");
 
         //normal values
         searchResultPage.setPriceRangeMax(200);
+
         searchResultPage.setPriceRangeMin(10);
 
         //max smaller than min values
