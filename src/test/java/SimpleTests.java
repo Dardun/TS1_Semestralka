@@ -266,4 +266,106 @@ public class SimpleTests {
 
     }
 
+    @Test
+    public void inputTestSearch() throws InterruptedException {
+        HomePage homePage = new HomePage(driver);
+        utilTestClass.acceptCookies();
+
+
+
+        utilTestClass.search("",driver);
+        utilTestClass.search("a",driver);
+        utilTestClass.search("ab",driver);
+        utilTestClass.search("metallica",driver);
+        utilTestClass.search("@#$&",driver);
+        utilTestClass.search(" ",driver);
+        utilTestClass.search("české znaky",driver);
+        utilTestClass.search("english symbols",driver);
+        utilTestClass.search("日本語",driver);
+
+        //partial
+        utilTestClass.search("infant annihil",driver);
+
+        //full match
+        utilTestClass.search("infant annihilator",driver);
+
+
+        //bad request showcase
+
+        utilTestClass.search("%",driver);
+
+
+    }
+    @Test
+    public void inputTestPriceRange() throws InterruptedException {
+        HomePage homePage = new HomePage(driver);
+        utilTestClass.acceptCookies();
+        SearchResultPage searchResultPage = utilTestClass.search("Test",driver);
+        searchResultPage.clickPriceOption();
+
+
+        //normal values
+        searchResultPage.setPriceRangeMax(200);
+        searchResultPage.setPriceRangeMin(10);
+
+        //max smaller than min values
+        searchResultPage.setPriceRangeMax(200);
+        searchResultPage.setPriceRangeMin(1000);
+
+
+        //large numbers
+
+        searchResultPage.setPriceRangeMin(-999999999);
+        searchResultPage.setPriceRangeMax(+999999999);
+
+        //+ and -
+        searchResultPage.setPriceRangeMin(-999999999);
+        searchResultPage.setPriceRangeMax(+999999999);
+
+
+        //decimal points
+        searchResultPage.setPriceRangeMin(-9999999.99);
+        searchResultPage.setPriceRangeMax(+9999999.99);
+
+
+        //Strings
+        searchResultPage.setPriceRangeMinAndMaxAsString("abc","abc");
+
+
+
+    }
+
+
+
+    @Test
+    public void searchFilterOptions() throws InterruptedException {
+        HomePage homePage = new HomePage(driver);
+        utilTestClass.acceptCookies();
+        SearchResultPage searchResultPage= utilTestClass.search("boty",driver);
+        searchResultPage.clickPriceOption();
+        searchResultPage.setPriceRangeMax(200);
+
+        searchResultPage.setPriceRangeMin(10);
+
+
+
+        searchResultPage.clickSexOption();
+
+
+        //selenium needs to scroll up else it thinks the element is hidden...
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        //scroll up 250 pixels
+        js.executeScript("window.scrollBy(0, -250)");
+
+        utilTestClass.closeSaleAdvert(driver);
+
+
+        js.executeScript("window.scrollBy(0, -250)");
+        searchResultPage.clickSexOption();
+        searchResultPage.selectFilterElementViaIndex(0);
+        searchResultPage.selectFilterElementViaIndex(2);
+        searchResultPage.selectFilterElementViaIndex(1);
+
+    }
+
 }
