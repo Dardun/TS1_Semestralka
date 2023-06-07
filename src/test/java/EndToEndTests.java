@@ -57,7 +57,14 @@ public class EndToEndTests {
 
         utilTestClass.clickLoginOption(driver);
 
-        simpleTests.fillOutLoginInfo(driver);
+        LoginPage loginPage = new LoginPage(driver);
+
+
+        loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
+        loginPage.inputTextIntoPWField("Mamradtesting12345!");
+        loginPage.submitLoginInfo();
+
+
 
 
         simpleTests.searchTest("boty", driver);
@@ -394,7 +401,7 @@ public class EndToEndTests {
 //    }
 
 
-    //adam
+    //dataprovider
     @DataProvider(name = "firmData")
     public Object[][] readFirmDataCSV() throws IOException {
         // Get the class loader of this class
@@ -436,8 +443,7 @@ public class EndToEndTests {
 
 
 
-    //adam test 5 TODO
-    ///upravit, prodlouzit
+    //adam test 5
     @Test(dataProvider = "firmData")
     public void firmDataProviderTest(String name, String street, String ico, String city, String dic, String zip) throws Exception {
 
@@ -506,7 +512,7 @@ public class EndToEndTests {
 
     }
 
-    //vaness
+    //vaness TODO
     @Test(dataProvider = "reviewData")
     public void addReviewTest(String name, String email, String review) throws InterruptedException {
         driver.get("https://www.metalshop.cz/p/135033-tricko-unisex-killstar-soul-card-black-ksra007941/");
