@@ -606,5 +606,43 @@ public class EndToEndTests {
 
     }
 
+    //vaness
+    @Test
+    public void checkoutEnd2End() throws Exception {
+        HomePage homePage = new HomePage(driver);
+        utilTestClass.acceptCookies();
+
+        //seaching for a product
+        SearchResultPage searchResultPage = utilTestClass.search("I love Satan",driver);
+
+        //selecting product and its size
+        ProductPage productPage = searchResultPage.findAndClickProduct(2, driver);
+        productPage.selectVariationViaIndex(0);
+
+        //adding it to favorites
+        productPage.addProductToFavorites();
+
+
+        //adding product to the cart
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        productPage.addProductToCart();
+
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        utilTestClass.clickShoppingCartOption(driver);
+        ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver);
+
+        DeliveryPage deliveryPage = shoppingCartPage.clickContinueButton();
+        deliveryPage.clickDeliveryOption(9);
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.findElement(By.cssSelector("#dpform > div.new-cart-form-buttons.new-cart-left > div > input")).click();
+
+
+        Assertions.assertEquals("Váš nákupní košík\n" +
+                "Pokud není stanoveno jinak, jsou uvedené ceny včetně DPH", driver.findElement(By.cssSelector("#top-affix > section > div.container > h1")).getText());
+
+    }
+
 
 }

@@ -31,6 +31,9 @@ public class HomePage {
     @FindBy(how = How.CSS, using = "#mySidenav > div > ul > li.dropdown.last > a")
     private WebElement accessoriesDropdown;
 
+    @FindBy(how = How.CSS, using = "#head_nav > ul > li:nth-child(3) > a > div.icon > span")
+    private WebElement logInButton;
+
 
 
 
@@ -50,6 +53,11 @@ public class HomePage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("#page-product > section > div.container.detail-mobile-padding-none > div > div.col-sm-6.detail_fr"))));
         return new ProductPage(driver);
+    }
+
+    public LoginPage clickLoginButton() {
+        logInButton.click();
+        return new LoginPage(driver);
     }
 
 
