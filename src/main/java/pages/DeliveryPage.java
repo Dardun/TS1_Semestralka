@@ -9,6 +9,8 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
+import static com.codeborne.selenide.Selenide.$;
+
 public class DeliveryPage {
 
     private WebDriver driver;
@@ -33,7 +35,7 @@ public class DeliveryPage {
     }
 
     public DeliveryPage clickContinueButton() {
-        driver.findElement(By.cssSelector("#dpform > div.new-cart-form-buttons.new-cart-left > div > input")).click();
+        $("#dpform > div.new-cart-form-buttons.new-cart-left > div > input").click();
         return this;
     }
 

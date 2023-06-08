@@ -1,5 +1,6 @@
 package pages;
 
+import com.codeborne.selenide.ElementsCollection;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,6 +10,7 @@ import org.openqa.selenium.support.How;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 public class ProductPage {
 
@@ -21,7 +23,7 @@ public class ProductPage {
     WebElement passwordVerificationField;
     // Find all web elements whose selectors start with "#variation_select"
     //for example size of a tshirt
-    List<WebElement> productVariationElements;
+    ElementsCollection productVariationElements;
 
     WebElement addToCartButton;
 
@@ -47,7 +49,7 @@ WebElement reviewButtonAnchor;
     public ProductPage(WebDriver driver) {
         this.driver = driver;
 //        stars = driver.findElements(By.cssSelector("#product_rating_form > div.stars"));
-        productVariationElements = driver.findElements(By.cssSelector("[id^='variation_select']"));
+        productVariationElements = $$("[id^='variation_select']");
 
 
         addToCartButton = $("#buy");

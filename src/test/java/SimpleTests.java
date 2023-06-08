@@ -376,4 +376,114 @@ public class SimpleTests {
 
 
     }
+
+
+
+
+//    DOESNT WORK
+// Backupxd
+//
+//
+//    @Test
+//    public void inputTestPriceRange1() throws InterruptedException {
+//        HomePage homePage = new HomePage(driver);
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        utilTestClass.acceptCookies();
+//        SearchResultPage searchResultPage = utilTestClass.search("Test",driver);
+//
+//        searchResultPage.clickPriceOption();
+//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+//        utilTestClass.closeSaleAdvert(driver);
+//        js.executeScript("window.scrollBy(0, -250)");
+//
+//        //normal values
+//        searchResultPage.setPriceRangeMax(200);
+//
+//        searchResultPage.setPriceRangeMin(10);
+//
+//    }
+//    @Test
+//    public void inputTestPriceRange2() throws InterruptedException {
+//        HomePage homePage = new HomePage(driver);
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        utilTestClass.acceptCookies();
+//        SearchResultPage searchResultPage = utilTestClass.search("Test",driver);
+//
+//        searchResultPage.clickPriceOption();
+//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+//        utilTestClass.closeSaleAdvert(driver);
+//        js.executeScript("window.scrollBy(0, -250)");
+//
+//        //max smaller than min values
+//        searchResultPage.setPriceRangeMax(200);
+//        searchResultPage.setPriceRangeMin(1000);
+//
+//
+//    }
+//
+//
+//
+//    @Test
+//    public void inputTestPriceRange3() throws InterruptedException {
+//        HomePage homePage = new HomePage(driver);
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        utilTestClass.acceptCookies();
+//        SearchResultPage searchResultPage = utilTestClass.search("Test",driver);
+//
+//        searchResultPage.clickPriceOption();
+//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+//        utilTestClass.closeSaleAdvert(driver);
+//        js.executeScript("window.scrollBy(0, -250)");
+//
+//
+//        //large numbers
+//
+//        searchResultPage.setPriceRangeMin(999999998);
+//        searchResultPage.setPriceRangeMax(999999999);
+//
+//
+//
+//    }
+//
+//    @Test
+//    public void inputTestPriceRange4() throws InterruptedException {
+//        HomePage homePage = new HomePage(driver);
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        utilTestClass.acceptCookies();
+//        SearchResultPage searchResultPage = utilTestClass.search("Test",driver);
+//
+//        searchResultPage.clickPriceOption();
+//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+//        utilTestClass.closeSaleAdvert(driver);
+//        js.executeScript("window.scrollBy(0, -250)");
+//
+//
+//        //+ and -
+//        searchResultPage.setPriceRangeMin(-999999999);
+//        searchResultPage.setPriceRangeMax(+999999999);
+//
+//
+//
+//    }
+//
+//    @Test
+//    public void inputTestPriceRange5() throws InterruptedException {
+//        HomePage homePage = new HomePage(driver);
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        utilTestClass.acceptCookies();
+//        SearchResultPage searchResultPage = utilTestClass.search("Test",driver);
+//
+//        searchResultPage.clickPriceOption();
+//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+//        utilTestClass.closeSaleAdvert(driver);
+//        js.executeScript("window.scrollBy(0, -250)");
+//
+//
+//        //Strings
+//        searchResultPage.setPriceRangeMinAndMaxAsString("abc","abc");
+//
+//
+//
+//    }
+
 }
