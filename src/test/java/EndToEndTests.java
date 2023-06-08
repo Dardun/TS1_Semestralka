@@ -734,5 +734,38 @@ public class EndToEndTests {
 
     }
 
+    //vaness
+    @Test
+    public void browsingFavoritesEnd2End() throws Exception {
+        HomePage homePage = new HomePage(driver);
+        utilTestClass.acceptCookies();
+
+        SearchResultPage searchPage = homePage.chooseCategorySearchPage(homePage.getAccessoriesDropdown());
+        ProductPage productPage = searchPage.findAndClickProduct(4, driver);
+
+        productPage.openPhotosOption();
+        productPage.openDescriptionOption();
+        productPage.addProductToFavorites();
+
+        searchPage = homePage.chooseCategorySearchPage(homePage.getWomenDropdown());
+        productPage = searchPage.findAndClickProduct(2, driver);
+        productPage.addProductToFavorites();
+
+        searchPage = homePage.chooseCategorySearchPage(homePage.getMenDropdown());
+        productPage = searchPage.findAndClickProduct(5, driver);
+        productPage.addProductToFavorites();
+
+        productPage.openDiscussionOption();
+
+
+        FavoriteProductsPage favoriteProductsPage = utilTestClass.clickFavoritesOption(driver);
+
+        favoriteProductsPage.removeAllFavorites();
+
+        Assertions.assertTrue(favoriteProductsPage.areFavoritesEmpty());
+
+    }
+
+
 
 }
