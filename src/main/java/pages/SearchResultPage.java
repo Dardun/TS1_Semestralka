@@ -53,7 +53,8 @@ public class SearchResultPage {
 
         boolean goToLastPage = false;
 
-        List<WebElement> pageLinks = driver.findElements(By.cssSelector("a.page-link"));
+
+        ElementsCollection pageLinks = $$("a.page-link");
 
 
         if(pageNumberToGoTo==-1){
@@ -64,7 +65,7 @@ public class SearchResultPage {
         int lastPageNumber = -1;
         // Iterate over the found elements and retrieve the text within the link
         for (WebElement link : pageLinks) {
-            int containerPageNumber = Integer.getInteger(link.getText());
+            int containerPageNumber = Integer.valueOf(link.getText());
 
 
             if(goToLastPage){

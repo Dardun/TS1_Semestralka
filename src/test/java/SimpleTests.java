@@ -65,24 +65,9 @@ public class SimpleTests {
 
 
 
-    @Test
-    void fillOutLoginInfo(WebDriver driver) throws  InterruptedException{
-        LoginPage loginPage = new LoginPage(driver);
 
 
-        loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
-        loginPage.inputTextIntoPWField("Mamradtesting12345!");
-        loginPage.submitLoginInfo();
-
-
-
-        Assertions.assertEquals("https://www.metalshop.cz/",driver.getCurrentUrl());
-
-
-    }
-
-
-    @Test
+//NOT A TEST
     void fillOutWrongLoginInfo(WebDriver driver) throws  InterruptedException{
         LoginPage loginPage = new LoginPage(driver);
 
@@ -100,8 +85,6 @@ public class SimpleTests {
 
     }
 
-    //Vanes NEVIM JESTLI TO @TEST vubec plati protoze samo je to nespustitelne... musi se to volat jen z te druhe metody
-    @Test
     void searchTest(String searchString, WebDriver driver) throws URISyntaxException {
 
         utilTestClass.search(searchString, driver);
@@ -116,15 +99,15 @@ public class SimpleTests {
     }
     UriEncoder encoder;
 
-    @Test
-    void searchTestFromHomePage(WebDriver driver) throws InterruptedException, URISyntaxException {
 
-        HomePage homePage = new HomePage(driver);
-        utilTestClass.acceptCookies();
-        searchTest("4=čárkaěěxxdd",driver);
-        driver.close();
-        driver.quit();
-    }
+
+    //UNUSED
+//    void searchTestFromHomePage(WebDriver driver) throws InterruptedException, URISyntaxException {
+//
+//        HomePage homePage = new HomePage(driver);
+//        utilTestClass.acceptCookies();
+//        searchTest("4=čárkaěěxxdd",driver);
+//    }
 
 
 
@@ -151,11 +134,11 @@ public class SimpleTests {
         LoginPage loginPage = new LoginPage(driver);
         utilTestClass.acceptCookies();
         loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
-        loginPage.inputTextIntoPWField("protondeeznuts123");
+        loginPage.inputTextIntoPWField("Mamradtesting12345!");
         loginPage.submitLoginInfo(); // firstly, logging into the account
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("#alert_success > strong")))); // waiting for elements to load
+        wait.until(ExpectedConditions.visibilityOf($("#alert_success > strong"))); // waiting for elements to load
 
         WebElement accountButton = driver.findElement(By.cssSelector("#head_nav > ul > li:nth-child(3) > a > div.name"));
         accountButton.click(); // clicking on the user account
@@ -171,7 +154,7 @@ public class SimpleTests {
     public void emailSubscriptionTest() throws InterruptedException {
         HomePage homePage = new HomePage(driver);
         utilTestClass.acceptCookies();
-        utilTestClass.subscribeToNewsletter(driver, "@gmail.com");
+        utilTestClass.subscribeToNewsletter(driver, "test@asdf.com");
         Assertions.assertEquals("https://www.metalshop.cz/newsletter/",driver.getCurrentUrl());
     }
 
@@ -185,23 +168,25 @@ public class SimpleTests {
         driver.manage().deleteAllCookies();
 
 
-        driver.get("https://www.metalshop.cz");
         // Delete existing cookies
 
+        Assertions.assertTrue(driver.manage().getCookies().isEmpty());
         // Refresh the page
         driver.navigate().refresh();
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("#header"))));
 
+        Assertions.assertTrue(driver.manage().getCookies().isEmpty());
         // Verify that cookies have been deleted
         Set<Cookie> cookies2 = driver.manage().getCookies();
         System.out.println(cookies2);
         Assertions.assertNotEquals(cookies1, cookies2);
         // This still doesn't work but probably should
-//        Set<Cookie> cookies = driver.manage().getCookies();
-//        System.out.println(cookies);
-//        Assertions.assertTrue(cookies.isEmpty());
+
+        Set<Cookie> cookies = driver.manage().getCookies();
+
+
+        System.out.println(cookies);
+        Assertions.assertTrue(cookies.isEmpty());
 
         // Accept new cookies (e.g., click "Accept" button)
         utilTestClass.acceptCookies();
@@ -227,20 +212,37 @@ public class SimpleTests {
     }
 
     @Test
-    public void checkoutTest() throws InterruptedException {
+    public void checkoutTest() throws Exception {
         LoginPage loginPage = new LoginPage(driver);
         utilTestClass.acceptCookies();
         loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
-        loginPage.inputTextIntoPWField("protondeeznuts123");
+        loginPage.inputTextIntoPWField("Mamradtesting12345!");
         loginPage.submitLoginInfo();
-        ShoppingCartPage shoppingCartPage = new ShoppingCartPage(driver);
-//        utilTestClass.acceptCookies();
+
+
+        SearchResultPage resultPage = utilTestClass.search("Shadow",driver);
+
+        ProductPage productPage = resultPage.findAndClickProduct(4,driver);
+
+        productPage.selectVariationViaIndex(0);
+        productPage.selectVariationViaIndex(1);
+        productPage.selectVariationViaIndex(0);
+        productPage.addProductToCart();
+
+        productPage.clickCloseAddedToCartPopup();
+
+        ShoppingCartPage shoppingCartPage = utilTestClass.clickShoppingCartOption(driver);
+
         DeliveryPage deliveryPage = shoppingCartPage.clickContinueButton();
+
+
         deliveryPage.clickDeliveryOption(9);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         deliveryPage.clickContinueButton();
         Assertions.assertEquals("https://www.metalshop.cz/ncart/data/",driver.getCurrentUrl());
 
+        shoppingCartPage = new ShoppingCartPage(driver);
+        shoppingCartPage.deleteAllFromShoppingCart();
     }
 
     @Test
@@ -319,35 +321,59 @@ public class SimpleTests {
 
 
 
+
+
+
     @Test
     public void searchFilterOptions() throws InterruptedException {
         HomePage homePage = new HomePage(driver);
         utilTestClass.acceptCookies();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+
+
         SearchResultPage searchResultPage= utilTestClass.search("boty",driver);
         searchResultPage.clickPriceOption();
         searchResultPage.setPriceRangeMax(200);
 
+        utilTestClass.closeSaleAdvert(driver);
+        utilTestClass.closeSaleAdvert(driver);
         searchResultPage.setPriceRangeMin(10);
 
+        js.executeScript("window.scrollBy(0, -250)");
 
 
         searchResultPage.clickSexOption();
 
 
         //selenium needs to scroll up else it thinks the element is hidden...
-        JavascriptExecutor js = (JavascriptExecutor) driver;
         //scroll up 250 pixels
         js.executeScript("window.scrollBy(0, -250)");
-
-        utilTestClass.closeSaleAdvert(driver);
-
-
-        js.executeScript("window.scrollBy(0, -250)");
         searchResultPage.clickSexOption();
+        js.executeScript("window.scrollBy(0, -250)");
         searchResultPage.selectFilterElementViaIndex(0);
         searchResultPage.selectFilterElementViaIndex(2);
         searchResultPage.selectFilterElementViaIndex(1);
 
     }
 
+
+
+
+
+
+    void fillOutLoginInfo(WebDriver driver) throws  InterruptedException{
+        LoginPage loginPage = new LoginPage(driver);
+
+
+        loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
+        loginPage.inputTextIntoPWField("Mamradtesting12345!");
+        loginPage.submitLoginInfo();
+
+
+
+        Assertions.assertEquals("https://www.metalshop.cz/",driver.getCurrentUrl());
+
+
+    }
 }
