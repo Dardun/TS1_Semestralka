@@ -1,5 +1,6 @@
 import com.codeborne.selenide.Driver;
 import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.conditions.Interactable;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.asynchttpclient.util.UriEncoder;
 import org.junit.jupiter.api.*;
@@ -284,36 +285,152 @@ public class SimpleTests {
 
         searchResultPage.clickPriceOption();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        utilTestClass.closeSaleAdvert(driver);
-        js.executeScript("window.scrollBy(0, -250)");
 
-        //normal values
-        searchResultPage.setPriceRangeMax(200);
+        boolean tempBool = false;
+        while(tempBool==false){
 
-        searchResultPage.setPriceRangeMin(10);
+            try{
 
-        //max smaller than min values
-        searchResultPage.setPriceRangeMax(200);
-        searchResultPage.setPriceRangeMin(1000);
+                //normal values
+                searchResultPage.setPriceRangeMax(200);
+
+                Thread.sleep(2000);
+
+                searchResultPage.setPriceRangeMin(100);
+                Thread.sleep(2000);
+
+                tempBool=true;
+
+            }
+            catch (ElementNotInteractableException e){
+                utilTestClass.closeSaleAdvert(driver);
+                js.executeScript("window.scrollBy(0, -250)");
+
+            }
+
+        }
+
+        tempBool=false;
+
+        while(tempBool==false){
+
+            try{
+
+                //MinLarger
+                searchResultPage.setPriceRangeMax(200);
+
+                Thread.sleep(2000);
+
+                searchResultPage.setPriceRangeMin(1000);
+                Thread.sleep(2000);
+
+                tempBool=true;
+
+            }
+            catch (ElementNotInteractableException e){
+                utilTestClass.closeSaleAdvert(driver);
+                js.executeScript("window.scrollBy(0, -250)");
+
+            }
+
+        }
+        tempBool=false;
+
+
+        while(tempBool==false){
+
+            try{
+
+                //normal values
+                searchResultPage.setPriceRangeMin(999999998);
+
+                Thread.sleep(2000);
+
+                searchResultPage.setPriceRangeMax(999999999);
+                Thread.sleep(2000);
+
+                tempBool=true;
+
+            }
+            catch (ElementNotInteractableException e){
+                utilTestClass.closeSaleAdvert(driver);
+                js.executeScript("window.scrollBy(0, -250)");
+
+            }
+
+        }
+        tempBool=false;
+
 
 
         //large numbers
 
-        searchResultPage.setPriceRangeMin(999999998);
-        searchResultPage.setPriceRangeMax(999999999);
+        while(tempBool==false){
 
-        //+ and -
-        searchResultPage.setPriceRangeMin(-999999999);
-        searchResultPage.setPriceRangeMax(+999999999);
+            try{
 
+                //normal values
+                searchResultPage.setPriceRangeMin(-999999998);
 
-        //decimal points
-        searchResultPage.setPriceRangeMin(-9999999.99);
-        searchResultPage.setPriceRangeMax(+9999999.99);
+                Thread.sleep(2000);
 
+                searchResultPage.setPriceRangeMax(+999999999);
+                Thread.sleep(2000);
 
-        //Strings
-        searchResultPage.setPriceRangeMinAndMaxAsString("abc","abc");
+                tempBool=true;
+
+            }
+            catch (ElementNotInteractableException e){
+                utilTestClass.closeSaleAdvert(driver);
+                js.executeScript("window.scrollBy(0, -250)");
+
+            }
+
+        }
+        tempBool=false;
+
+        while(tempBool==false){
+
+            try{
+
+                //normal values
+                searchResultPage.setPriceRangeMin(-9999999.98);
+
+                Thread.sleep(2000);
+
+                searchResultPage.setPriceRangeMax(+9999999.99);
+                Thread.sleep(2000);
+
+                tempBool=true;
+
+            }
+            catch (ElementNotInteractableException e){
+                utilTestClass.closeSaleAdvert(driver);
+                js.executeScript("window.scrollBy(0, -250)");
+
+            }
+
+        }
+        tempBool=false;
+        while(tempBool==false){
+
+            try{
+
+                //normal values
+                //Strings
+                searchResultPage.setPriceRangeMinAndMaxAsString("abc","abc");
+
+                tempBool=true;
+
+            }
+            catch (ElementNotInteractableException e){
+                utilTestClass.closeSaleAdvert(driver);
+                js.executeScript("window.scrollBy(0, -250)");
+
+            }
+
+        }
+        tempBool=false;
 
 
 

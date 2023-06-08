@@ -158,9 +158,9 @@ public class SearchResultPage {
     public void setPriceRangeMin(double minNumber){
         WebElement priceRangeMin = $("#price-range-start");
 
+        priceRangeMin.click();
         priceRangeMin.clear();
         String minNumberString = String.valueOf(minNumber);
-        priceRangeMin.click();
         priceRangeMin.sendKeys(minNumberString);
 
     }
@@ -170,12 +170,13 @@ public class SearchResultPage {
         WebElement priceRangeMax = $("#price-range-stop");
 
 
+        priceRangeMax.click();
+
         priceRangeMax.clear();
 
         String maxNumberString = String.valueOf(maxNumber);
 
 
-        priceRangeMax.click();
         priceRangeMax.sendKeys(maxNumberString);
 
 
@@ -186,20 +187,28 @@ public class SearchResultPage {
 
 
 
-    public void setPriceRangeMinAndMaxAsString(String minNumber, String maxNumber){
+    public void setPriceRangeMinAndMaxAsString(String minNumber, String maxNumber) throws InterruptedException {
 
 
         WebElement priceRangeMax = $("#price-range-stop");
 
         WebElement priceRangeMin = $("#price-range-start");
 
-
+        priceRangeMax.click();
         priceRangeMax.clear();
+
+
+        priceRangeMin.click();
         priceRangeMin.clear();
+
 
         priceRangeMax.click();
         priceRangeMax.sendKeys(maxNumber);
+        Thread.sleep(2000);
+
+        priceRangeMin.click();
         priceRangeMin.sendKeys(minNumber);
+        Thread.sleep(2000);
 
 
 
