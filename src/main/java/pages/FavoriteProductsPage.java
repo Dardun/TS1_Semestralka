@@ -1,10 +1,13 @@
 package pages;
 
+import com.codeborne.selenide.ElementsCollection;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
+
+import static com.codeborne.selenide.Selenide.$$;
 
 public class FavoriteProductsPage {
 
@@ -67,17 +70,18 @@ public class FavoriteProductsPage {
 
     public void removeAllFavorites(){
 
-        List<WebElement> elements = driver.findElements(By.className("plist-remove"));
+        ElementsCollection elements = $$(By.className("plist-remove"));
 
 
 
 
         for (WebElement element : elements) {
             element.click();
-            elements = driver.findElements(By.className("plist-remove"));
+            elements = $$(By.className("plist-remove"));
 
 
         }
+
 
     }
 

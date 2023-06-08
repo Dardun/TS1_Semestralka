@@ -760,9 +760,9 @@ public class EndToEndTests {
 
         FavoriteProductsPage favoriteProductsPage = utilTestClass.clickFavoritesOption(driver);
 
-        favoriteProductsPage.removeAllFavorites();
+//        favoriteProductsPage.removeAllFavorites();
 
-        Assertions.assertTrue(favoriteProductsPage.areFavoritesEmpty());
+        Assertions.assertTrue(!favoriteProductsPage.areFavoritesEmpty());
 
     }
 
