@@ -23,7 +23,7 @@ public class SearchResultPage {
 
 
     public ProductPage findAndClickProduct(int index,WebDriver driver) throws Exception {
-        List<WebElement> productItems = driver.findElements(By.className("product-item"));
+        ElementsCollection productItems = $$(By.className("product-item"));
 
         if (index<0){
             throw new Exception("faulty request!");
