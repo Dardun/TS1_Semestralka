@@ -134,7 +134,7 @@ public class EndToEndTests {
         favoriteProductsPage = new FavoriteProductsPage(driver);
 
         if (!favoriteProductsPage.areFavoritesEmpty()) {
-            throw new Exception("Favorites shouldn't have anythign when cookies are cleared!");
+            throw new Exception("Favorites shouldn't have anything when cookies are cleared!");
         }
 
 
@@ -684,6 +684,53 @@ public class EndToEndTests {
 
         Assertions.assertEquals("Váš nákupní košík\n" +
                 "Pokud není stanoveno jinak, jsou uvedené ceny včetně DPH", driver.findElement(By.cssSelector("#top-affix > section > div.container > h1")).getText());
+
+    }
+
+
+    //vaness
+    @Test
+    public void reviewScenarioEnd2End() throws Exception {
+        HomePage homePage = new HomePage(driver);
+
+        utilTestClass.acceptCookies();
+        SearchResultPage searchPage = homePage.chooseCategorySearchPage(homePage.getAccessoriesDropdown()); // clicked on woman category
+
+        ProductPage productPage = searchPage.findAndClickProduct(2, driver);
+
+
+        LoginPage loginPage = homePage.clickLoginButton();
+        loginPage.inputTextIntoNameEmailField("testingseleniumcvut@protonmail.com");
+        loginPage.inputTextIntoPWField("Mamradtesting12345!");
+        loginPage.submitLoginInfo();
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        utilTestClass.closeSaleAdvert(driver);
+
+
+        productPage.openReviewOption().addNewReview();
+        productPage.fillInReviewForm("Isména Temná", "ismenatemna@gmail.com", "Skvelý produkt, rozhodne sa nechcem zabiť.");
+        productPage.selectNumberOfStars(4);
+
+        Assertions.assertEquals("Isména Temná", driver.findElement(By.cssSelector("#rating_name")).getAttribute("value"));
+
+
+        SearchResultPage searchResultPage = homePage.chooseCategorySearchPage(homePage.getMenDropdown());
+
+        //selecting product and its size
+        productPage = searchResultPage.findAndClickProduct(3, driver);
+
+        productPage.addProductToFavorites();
+
+        productPage.openReviewOption();
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        productPage.addNewReview();
+        productPage.fillInReviewForm("Isména Temná", "ismenatemna@gmail.com", "Manžel v ňom miluje zakopávať mŕtvoly.");
+        productPage.selectNumberOfStars(5);
+
+
+        Assertions.assertEquals("Isména Temná", driver.findElement(By.cssSelector("#rating_name")).getAttribute("value"));
 
     }
 

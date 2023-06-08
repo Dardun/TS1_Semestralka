@@ -71,6 +71,11 @@ public class HomePage {
         return this;
     }
 
+    public SearchResultPage chooseCategorySearchPage(WebElement element) {
+        element.click();
+        return new SearchResultPage(driver);
+    }
+
     public HomePage selectProductsSize(WebElement element) {
         element.click();
         driver.findElement(By.cssSelector("#variation_select_135033_1_2")).click();
