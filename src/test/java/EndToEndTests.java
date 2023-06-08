@@ -519,7 +519,6 @@ public class EndToEndTests {
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("#product_rating_form > div.stars"))));
         productPage.selectNumberOfStars(5);
         productPage.fillInReviewForm(name, email, review);
-        // ...
     }
 
     @DataProvider(name = "reviewData")
@@ -580,6 +579,8 @@ public class EndToEndTests {
             String border = driver.findElement(By.cssSelector("#variation_select_135033_1_2 > div")).getCssValue("border");
             return border.equals("1px solid rgb(236, 127, 0)");
         });
+        //add product to favorites
+        productPage.addProductToFavorites();
 
         // clicking on the buy button
         productPage.addProductToCart();
